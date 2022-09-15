@@ -1,6 +1,7 @@
 package nttdata.grupouno.com.Clients.controllers;
 
 import nttdata.grupouno.com.Clients.models.Clients;
+import nttdata.grupouno.com.Clients.repositories.ClientesRepository;
 import nttdata.grupouno.com.Clients.services.ClientsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
@@ -24,13 +25,26 @@ public class ClientsController {
 
 
     @GetMapping
-    public Mono<ResponseEntity<Flux<Clients>>> findAll(){
-        return Mono
-                .just(ResponseEntity.ok()
-                        .contentType(MediaType.APPLICATION_JSON)
-                        .body(clientsService.listAllClients()))
-                .defaultIfEmpty(ResponseEntity.notFound().build());
+    public Flux<Clients> findAll(){
+        return clientsService.listAllClients();
     }
+
+    @GetMapping("/{id}")
+    public Mono<Clients> findAllById(@PathVariable final Long id){
+        return clientsService.findAllById(id).flatMap(clients -> {
+            return  Mono.just(clients);
+        });
+    }
+
+    @GetMapping("/findByIdTypePerson/{idTypePerson}")
+    public Flux<Clients> findByIdTypePerson(@PathVariable(value ="idTypePerson" ) final Long idTypePerson){
+        System.out.println(idTypePerson);
+        return clientsService.findByIdTypePerson(idTypePerson).flatMap(clients ->{
+            System.out.println(clients);
+            return Flux.just(clients);
+        });
+    }
+
 
     @PostMapping
     public Mono<ResponseEntity<Map<String,Object>>> addClient(@Valid @RequestBody final Mono<Clients> clientsMono){
