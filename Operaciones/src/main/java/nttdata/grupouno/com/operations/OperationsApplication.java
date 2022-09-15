@@ -1,13 +1,13 @@
-package nttdata.grupouno.com.Operaciones;
+package nttdata.grupouno.com.operations;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class OperacionesApplication {
+public class OperationsApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(OperacionesApplication.class, args);
+		SpringApplication.run(OperationsApplication.class, args);
 	}
 
 }
