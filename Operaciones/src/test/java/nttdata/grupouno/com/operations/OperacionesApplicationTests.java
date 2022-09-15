@@ -1,4 +1,4 @@
-package nttdata.grupouno.com.Operaciones;
+package nttdata.grupouno.com.operations;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
