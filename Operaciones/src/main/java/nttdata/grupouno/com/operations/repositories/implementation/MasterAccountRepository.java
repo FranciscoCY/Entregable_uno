@@ -1,6 +1,9 @@
 package nttdata.grupouno.com.operations.repositories.implementation;
 
-import nttdata.grupouno.com.operations.repositories.IMasterAccountRepository;
+import nttdata.grupouno.com.operations.models.MasterAccount;
+import org.springframework.data.mongodb.repository.ReactiveMongoRepository;
+import org.springframework.stereotype.Repository;
 
-public class MasterAccountRepository implements IMasterAccountRepository {
+@Repository
+public interface MasterAccountRepository extends ReactiveMongoRepository<MasterAccount, Integer> {
 }
