@@ -17,10 +17,8 @@ public class NaturalPerson {
     @org.springframework.data.annotation.Id
     private Long id;
     @Positive(message = "El Nro. Documento debe ser mayor de cero")
-    @NotEmpty(message = "El Nro. Documento no debe ser vacio")
     private Long documentNumber;
     @Positive(message = "El Tipo Documento debe ser mayor de cero")
-    @NotEmpty(message = "El Tipo Documento no debe ser vacio")
     private Long documentType;
     @NotEmpty(message = "Los Nombres no pueden ser vacios")
     private String names;
