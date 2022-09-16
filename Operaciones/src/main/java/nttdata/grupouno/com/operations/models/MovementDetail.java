@@ -1,30 +1,24 @@
 package nttdata.grupouno.com.operations.models;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.annotation.Id;
 import java.util.Date;
 
 @Data
-@Document(collection = "movimientoOperaciones")
+@AllArgsConstructor
+@NoArgsConstructor
+@Document(collection = "MovementDetail")
 public class MovementDetail {
     @Id
     private Integer id;
-    private String numeroCuenta;
-    private Date fecha;
-    private Double monto;
-    private Character tipoMovimiento ; // R:retiro D:deposito
-    private Double comision;
-    private String tipoMoneda; // PEN - USD
-
-    public MovementDetail(Integer id, String numeroCuenta, Date fecha, Double monto, Character tipoMovimiento, Double comision, String tipoMoneda){
-        this.id = id;
-        this.numeroCuenta = numeroCuenta;
-        this.fecha = fecha;
-        this.monto = monto;
-        this.tipoMovimiento = tipoMovimiento;
-        this.comision = comision;
-        this.tipoMoneda = tipoMoneda;
-    }
+    private String numberAccount;
+    private Date date;
+    private Double amount;
+    private Character movementType ; // R:retiro D:deposito C:consulta
+    private Double commission;
+    private String currency; // PEN - USD
 
 }

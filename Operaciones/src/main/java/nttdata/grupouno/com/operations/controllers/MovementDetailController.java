@@ -24,7 +24,7 @@ public class MovementDetailController {
 
     @GetMapping(value = "/all")
     @ResponseBody
-    public Flux<MovementDetail> findAllAccount() {
+    public Flux<MovementDetail> findAllMovements() {
         return movementService.findAllMovements();
     }
 
