@@ -39,7 +39,6 @@ public class ClientServiceImpl implements ClientsService {
 
     @Override
     public Mono<Clients> updateClient(Clients client, Long id) {
-
         return  findAllById(id).flatMap(c ->{
             c.setMail(client.getMail());
             return clientesRepository.save(c);
