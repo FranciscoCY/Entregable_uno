@@ -1,21 +1,36 @@
 package nttdata.grupouno.com.operations.models;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
-import java.util.Date;
+import javax.validation.constraints.DecimalMin;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 
 @Data
-@Document(collection = "cuentaOperaciones")
+@AllArgsConstructor
+@NoArgsConstructor
+@Document(collection = "masterAccount")
 public class MasterAccount {
     @Id
-    private Integer id;
-    private String numeroCuenta;
-    private String tipo;
-    private Date fechaApertura;
-    private char estado; // A:Activo - I:Inactivo - C:Cancelado
-    private Date fechaCancelacion;
-    private Double monto;
-    private String tipoMoneda; // PEN - USD
+    private String id;
+    @NotEmpty
+    private String numberAccount;
+    @NotEmpty
+    private String type;
+    @NotEmpty
+    private String startDate;
+    @NotEmpty
+    private String status; // A:Activo - I:Inactivo - C:Cancelado
+    @NotEmpty
+    private String endData;
+    @NotNull
+    @DecimalMin(value = "0.00", message = "El monto no puede ser negativo")
+    private Double amount;
+    @NotEmpty
+    private String coinType; // PEN - USD
 }

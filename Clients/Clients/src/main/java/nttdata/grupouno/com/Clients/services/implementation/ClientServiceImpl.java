@@ -39,16 +39,22 @@ public class ClientServiceImpl implements ClientsService {
 
     @Override
     public Mono<Clients> updateClient(Clients client, Long id) {
-        return null;
+        return  findAllById(id).flatMap(c ->{
+            c.setMail(client.getMail());
+            return clientesRepository.save(c);
+        });
     }
 
     @Override
     public Mono<Void> deleteClient(Long id) {
-        return null;
+        return findAllById(id).flatMap(c -> clientesRepository.deleteById(c.getId()));
     }
 
     @Override
     public Flux<Clients> findByIdTypePerson(Long idTypePerson) {
-        return null;
+
+        return clientesRepository.findByIdTypePerson(idTypePerson).flatMap(clients -> {
+            return Mono.just(clients);
+        });
     }
 }

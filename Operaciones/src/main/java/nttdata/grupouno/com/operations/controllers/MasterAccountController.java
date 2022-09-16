@@ -1,14 +1,17 @@
 package nttdata.grupouno.com.operations.controllers;
 
 import nttdata.grupouno.com.operations.models.MasterAccount;
+import nttdata.grupouno.com.operations.services.IMasterAccountServices;
 import nttdata.grupouno.com.operations.services.implementation.MasterAccountServices;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Required;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
+
+import javax.validation.Valid;
 
 @RestController
 @RequestMapping("/account")
@@ -17,7 +20,7 @@ public class MasterAccountController {
     private MasterAccountServices accountServices;
     @PostMapping("/")
     @ResponseStatus(HttpStatus.CREATED)
-    public void createAccount(@RequestBody MasterAccount account){
+    public void createAccount(@RequestBody @Valid MasterAccount account){
         accountServices.createAccount(account);
     }
     @GetMapping(value = "/all")
@@ -27,7 +30,7 @@ public class MasterAccountController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Mono<MasterAccount>> findAccountById(@PathVariable("id") Integer id){
+    public ResponseEntity<Mono<MasterAccount>> findAccountById(@PathVariable("id") String id){
         Mono<MasterAccount> accountMono = accountServices.findByAccount(id);
         return new ResponseEntity<>(accountMono, accountMono != null ? HttpStatus.OK : HttpStatus.NOT_FOUND);
     }
@@ -40,7 +43,13 @@ public class MasterAccountController {
 
     @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
-    public void delete(@PathVariable("id") Integer id){
+    public void delete(@PathVariable("id") String id){
         accountServices.deleteBydId(id).subscribe();
+    }
+
+    @GetMapping("/findStartDate/{date}")
+    @ResponseBody
+    public Flux<MasterAccount> findStartDate(@PathVariable("date") String date){
+        return accountServices.findStartDate(date);
     }
 }
