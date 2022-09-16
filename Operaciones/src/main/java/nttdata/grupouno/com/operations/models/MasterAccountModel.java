@@ -36,7 +36,7 @@ public class MasterAccountModel {
     @NotEmpty
     private String coinType; // PEN - USD
     @NotEmpty
-    private String[] codeClient;
+    private TypeModel[] clients;
     @NotNull
     @Min(0)
     private int countLimitOperation;

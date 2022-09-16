@@ -14,4 +14,5 @@ public class TypeModel {
     @Id
     private String code;
     private String description;
+    private String status;
 }
