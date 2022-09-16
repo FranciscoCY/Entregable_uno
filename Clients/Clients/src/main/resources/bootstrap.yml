@@ -1,0 +1,12 @@
+spring:
+  application:
+    name: Microservicio-Clients
+  cloud:
+    config:
+      enabled: true
+      uri: http://localhost:
+
+
+
+
+spring.data.mongodb.URI=mongodb://localhost:27017/Person
