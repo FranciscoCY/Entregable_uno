@@ -1,2 +1,6 @@
 server:
   port: 8002
+spring:
+  data:
+    mongodb:
+      URI: mongodb://localhost:27017/Person
