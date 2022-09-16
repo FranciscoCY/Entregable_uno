@@ -5,10 +5,47 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="36c236c2-a219-4782-9c49-0ae7d8ad1fbe" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__jakarta_validation_jakarta_validation_api_2_0_2.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Clients/.idea/libraries/Maven__commons_codec_commons_codec_1_15.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Clients/.idea/libraries/Maven__org_apache_httpcomponents_httpclient_4_5_13.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Clients/.idea/libraries/Maven__org_apache_httpcomponents_httpcore_4_4_15.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Clients/.idea/libraries/Maven__org_bouncycastle_bcpkix_jdk15on_1_68.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Clients/.idea/libraries/Maven__org_bouncycastle_bcprov_jdk15on_1_68.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Clients/.idea/libraries/Maven__org_springframework_cloud_spring_cloud_commons_3_1_3.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Clients/.idea/libraries/Maven__org_springframework_cloud_spring_cloud_config_client_3_1_3.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Clients/.idea/libraries/Maven__org_springframework_cloud_spring_cloud_context_3_1_3.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Clients/.idea/libraries/Maven__org_springframework_cloud_spring_cloud_starter_3_1_3.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Clients/.idea/libraries/Maven__org_springframework_cloud_spring_cloud_starter_bootstrap_3_1_3.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Clients/.idea/libraries/Maven__org_springframework_cloud_spring_cloud_starter_config_3_1_3.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Clients/.idea/libraries/Maven__org_springframework_security_spring_security_crypto_5_7_3.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Clients/.idea/libraries/Maven__org_springframework_security_spring_security_rsa_1_0_10_RELEASE.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Clients/Clients/src/main/resources/bootstrap.yml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Clients/Clients/target/classes/bootstrap.yml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Config-Data/.idea/Config-Data.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Config-Data/clients-service.yml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Config-Server/Config-Server/src/main/resources/application.yml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Operaciones/src/main/java/nttdata/grupouno/com/operations/models/TypeModel.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Clients/Clients/Clients.iml" beforeDir="false" afterPath="$PROJECT_DIR$/Clients/Clients/Clients.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Clients/Clients/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/Clients/Clients/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Clients/Clients/src/main/resources/application.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Clients/Clients/target/classes/application.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Config-Data/Clients.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Config-Server/Config-Server/src/main/java/nttdata/grupouno/com/ConfigServer/ConfigServerApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/Config-Server/Config-Server/src/main/java/nttdata/grupouno/com/ConfigServer/ConfigServerApplication.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Config-Server/Config-Server/src/main/resources/application.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Operaciones/src/main/java/nttdata/grupouno/com/operations/controllers/MasterAccountController.java" beforeDir="false" afterPath="$PROJECT_DIR$/Operaciones/src/main/java/nttdata/grupouno/com/operations/controllers/MasterAccountController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Operaciones/src/main/java/nttdata/grupouno/com/operations/controllers/MovementDetailController.java" beforeDir="false" afterPath="$PROJECT_DIR$/Operaciones/src/main/java/nttdata/grupouno/com/operations/controllers/MovementDetailController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Operaciones/src/main/java/nttdata/grupouno/com/operations/models/MovementDetail.java" beforeDir="false" afterPath="$PROJECT_DIR$/Operaciones/src/main/java/nttdata/grupouno/com/operations/models/MovementDetail.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Operaciones/src/main/java/nttdata/grupouno/com/operations/models/DetailAccount.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Operaciones/src/main/java/nttdata/grupouno/com/operations/models/MasterAccount.java" beforeDir="false" afterPath="$PROJECT_DIR$/Operaciones/src/main/java/nttdata/grupouno/com/operations/models/MasterAccountModel.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Operaciones/src/main/java/nttdata/grupouno/com/operations/models/MovementDetail.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Operaciones/src/main/java/nttdata/grupouno/com/operations/models/MovementDetailModel.java" beforeDir="false" afterPath="$PROJECT_DIR$/Operaciones/src/main/java/nttdata/grupouno/com/operations/models/MovementDetailModel.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Operaciones/src/main/java/nttdata/grupouno/com/operations/repositories/IMasterAccountRepository.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Operaciones/src/main/java/nttdata/grupouno/com/operations/repositories/IMovementDetailRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/Operaciones/src/main/java/nttdata/grupouno/com/operations/repositories/IMovementDetailRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Operaciones/src/main/java/nttdata/grupouno/com/operations/repositories/implementation/MasterAccountRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/Operaciones/src/main/java/nttdata/grupouno/com/operations/repositories/implementation/MasterAccountRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Operaciones/src/main/java/nttdata/grupouno/com/operations/repositories/implementation/MovementDetailRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/Operaciones/src/main/java/nttdata/grupouno/com/operations/repositories/implementation/MovementDetailRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Operaciones/src/main/java/nttdata/grupouno/com/operations/services/IMasterAccountServices.java" beforeDir="false" afterPath="$PROJECT_DIR$/Operaciones/src/main/java/nttdata/grupouno/com/operations/services/IMasterAccountServices.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Operaciones/src/main/java/nttdata/grupouno/com/operations/services/IMovementDetailService.java" beforeDir="false" afterPath="$PROJECT_DIR$/Operaciones/src/main/java/nttdata/grupouno/com/operations/services/IMovementDetailService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Operaciones/src/main/java/nttdata/grupouno/com/operations/services/implementation/MasterAccountServices.java" beforeDir="false" afterPath="$PROJECT_DIR$/Operaciones/src/main/java/nttdata/grupouno/com/operations/services/implementation/MasterAccountServices.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Operaciones/src/main/java/nttdata/grupouno/com/operations/services/implementation/MovementDetailService.java" beforeDir="false" afterPath="$PROJECT_DIR$/Operaciones/src/main/java/nttdata/grupouno/com/operations/services/implementation/MovementDetailService.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />

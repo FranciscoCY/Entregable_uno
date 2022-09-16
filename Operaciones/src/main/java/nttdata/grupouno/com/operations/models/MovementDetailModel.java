@@ -11,13 +11,13 @@ import java.util.Date;
 @AllArgsConstructor
 @NoArgsConstructor
 @Document(collection = "MovementDetail")
-public class MovementDetail {
+public class MovementDetailModel {
     @Id
     private Integer id;
     private String numberAccount;
     private Date date;
     private Double amount;
-    private Character movementType ; // R:retiro D:deposito C:consulta
+    private Character movementType; // R:retiro D:deposito C:consulta
     private Double commission;
     private String currency; // PEN - USD
 
