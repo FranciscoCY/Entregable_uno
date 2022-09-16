@@ -7,7 +7,7 @@ import java.util.Date;
 
 @Data
 @Document(collection = "movimientoOperaciones")
-public class MovementDetail {
+public class MovementDetailModel {
     @Id
     private Integer id;
     private String numeroCuenta;
@@ -17,7 +17,7 @@ public class MovementDetail {
     private Double comision;
     private String tipoMoneda; // PEN - USD
 
-    public MovementDetail(Integer id, String numeroCuenta, Date fecha, Double monto, Character tipoMovimiento, Double comision, String tipoMoneda){
+    public MovementDetailModel(Integer id, String numeroCuenta, Date fecha, Double monto, Character tipoMovimiento, Double comision, String tipoMoneda){
         this.id = id;
         this.numeroCuenta = numeroCuenta;
         this.fecha = fecha;

@@ -15,13 +15,15 @@ import javax.validation.constraints.NotNull;
 @AllArgsConstructor
 @NoArgsConstructor
 @Document(collection = "masterAccount")
-public class MasterAccount {
+public class MasterAccountModel {
     @Id
     private String id;
     @NotEmpty
     private String numberAccount;
     @NotEmpty
-    private String type;
+    private TypeModel type; //Activo - Pasivo
+    @NotEmpty
+    private TypeModel subType; //Ahorro - Cuenta Corriente - Plazo Fijo / Personal - Empresarial
     @NotEmpty
     private String startDate;
     @NotEmpty
@@ -33,4 +35,12 @@ public class MasterAccount {
     private Double amount;
     @NotEmpty
     private String coinType; // PEN - USD
+    @NotEmpty
+    private String[] codeClient;
+    @NotNull
+    @Min(0)
+    private int countLimitOperation;
+    @NotNull
+    @DecimalMin(value = "0.00")
+    private Double amountLimit;
 }

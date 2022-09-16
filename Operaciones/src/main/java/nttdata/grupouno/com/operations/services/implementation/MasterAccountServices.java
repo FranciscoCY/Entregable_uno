@@ -1,10 +1,9 @@
 package nttdata.grupouno.com.operations.services.implementation;
 
-import nttdata.grupouno.com.operations.models.MasterAccount;
+import nttdata.grupouno.com.operations.models.MasterAccountModel;
 import nttdata.grupouno.com.operations.repositories.implementation.MasterAccountRepository;
 import nttdata.grupouno.com.operations.services.IMasterAccountServices;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Example;
 import org.springframework.stereotype.Service;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
@@ -17,19 +16,19 @@ public class MasterAccountServices implements IMasterAccountServices {
     private MasterAccountRepository accountRepository;
 
     @Override
-    public void createAccount(MasterAccount account){
+    public void createAccount(MasterAccountModel account){
         account.setId(UUID.randomUUID().toString());
         accountRepository.save(account).subscribe();
     }
-    public Mono<MasterAccount> findByAccount(String id){
+    public Mono<MasterAccountModel> findByAccount(String id){
         return accountRepository.findById(id);
     }
     @Override
-    public Flux<MasterAccount> findAllAccount(){
+    public Flux<MasterAccountModel> findAllAccount(){
         return  accountRepository.findAll();
     }
     @Override
-    public Mono<MasterAccount> updateAccount(MasterAccount account){
+    public Mono<MasterAccountModel> updateAccount(MasterAccountModel account){
         return accountRepository.save(account);
     }
     @Override
@@ -38,7 +37,7 @@ public class MasterAccountServices implements IMasterAccountServices {
     }
 
     @Override
-    public Flux<MasterAccount> findStartDate(String date) {
-        return accountRepository.findAll(Example.of(new MasterAccount(null, null, null, date, null, null, null, null)));
+    public Flux<MasterAccountModel> findStartDate(String date) {
+        return accountRepository.findByStartDate(date);
     }
 }

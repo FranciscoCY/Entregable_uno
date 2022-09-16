@@ -1,6 +1,6 @@
 package nttdata.grupouno.com.operations.services.implementation;
 
-import nttdata.grupouno.com.operations.models.MovementDetail;
+import nttdata.grupouno.com.operations.models.MovementDetailModel;
 import nttdata.grupouno.com.operations.repositories.implementation.MovementDetailRepository;
 import nttdata.grupouno.com.operations.services.IMovementDetailService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,23 +16,23 @@ public class MovementDetailService implements IMovementDetailService {
     private MovementDetailRepository movementRepository;
 
     @Override
-    public void createAccount(MovementDetail movement) {
+    public void createAccount(MovementDetailModel movement) {
         movementRepository.save(movement).subscribe();
     }
 
     @Override
-    public Mono<MovementDetail> findById(Integer id) {
+    public Mono<MovementDetailModel> findById(Integer id) {
         return movementRepository.findById(id);
     }
 
     @Override
-    public Flux<MovementDetail> findAllMovements() {
+    public Flux<MovementDetailModel> findAllMovements() {
         return movementRepository.findAll();
     }
 
     @Override
-    public Flux<MovementDetail> findByAccount(String account) {
-        return movementRepository.findAll(Example.of(new MovementDetail(null,account,null,null, null,null,null)));
+    public Flux<MovementDetailModel> findByAccount(String account) {
+        return movementRepository.findAll(Example.of(new MovementDetailModel(null,account,null,null, null,null,null)));
     }
 
 
