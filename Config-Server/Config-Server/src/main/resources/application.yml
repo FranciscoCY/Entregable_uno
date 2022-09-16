@@ -11,7 +11,7 @@ spring:
           searchPaths: Config-Data
           username: FranciscoCY
           password: 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
-          default-label: main
+
   security:
     user:
       name: root
