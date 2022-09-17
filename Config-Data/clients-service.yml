@@ -4,3 +4,4 @@ spring:
   data:
     mongodb:
       URI: mongodb://localhost:27017/Person
+      auto-index-creation: true
