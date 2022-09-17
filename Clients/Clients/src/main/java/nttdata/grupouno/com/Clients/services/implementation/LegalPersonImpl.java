@@ -50,7 +50,7 @@ public class LegalPersonImpl implements LegalPersonService {
     }
 
     @Override
-    public Flux<LegalPerson> findByRuc(Long ruc) {
+    public Mono<LegalPerson> findByRuc(Long ruc) {
         return legalPersonRepository.findByRuc(ruc).flatMap(l ->{
             return Mono.just(l);
         });

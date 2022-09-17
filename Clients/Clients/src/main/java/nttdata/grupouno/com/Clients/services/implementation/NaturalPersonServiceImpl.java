@@ -38,7 +38,7 @@ public class NaturalPersonServiceImpl implements NaturalPersonService {
         if(naturalPerson == null){
             return null;
         }else{
-            return naturalPersonRepository.save(naturalPerson);
+                return naturalPersonRepository.save(naturalPerson);
         }
     }
 
@@ -48,7 +48,7 @@ public class NaturalPersonServiceImpl implements NaturalPersonService {
     }
 
     @Override
-    public Flux<NaturalPerson> findByDocumentNumber(Long documentNumber) {
+    public Mono<NaturalPerson> findByDocumentNumber(Long documentNumber) {
         return naturalPersonRepository.findByDocumentNumber(documentNumber);
     }
 

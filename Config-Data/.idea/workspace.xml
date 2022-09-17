@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="a3807183-4dfd-469a-aae2-68803954cbb3" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/../Clients/Clients/src/main/java/nttdata/grupouno/com/Clients/controllers/LegalPersonController.java" beforeDir="false" afterPath="$PROJECT_DIR$/../Clients/Clients/src/main/java/nttdata/grupouno/com/Clients/controllers/LegalPersonController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Clients/Clients/src/main/java/nttdata/grupouno/com/Clients/controllers/NaturalPersonController.java" beforeDir="false" afterPath="$PROJECT_DIR$/../Clients/Clients/src/main/java/nttdata/grupouno/com/Clients/controllers/NaturalPersonController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Clients/Clients/src/main/java/nttdata/grupouno/com/Clients/models/Clients.java" beforeDir="false" afterPath="$PROJECT_DIR$/../Clients/Clients/src/main/java/nttdata/grupouno/com/Clients/models/Clients.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Clients/Clients/src/main/java/nttdata/grupouno/com/Clients/models/LegalPerson.java" beforeDir="false" afterPath="$PROJECT_DIR$/../Clients/Clients/src/main/java/nttdata/grupouno/com/Clients/models/LegalPerson.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Clients/Clients/src/main/java/nttdata/grupouno/com/Clients/models/NaturalPerson.java" beforeDir="false" afterPath="$PROJECT_DIR$/../Clients/Clients/src/main/java/nttdata/grupouno/com/Clients/models/NaturalPerson.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Clients/Clients/src/main/java/nttdata/grupouno/com/Clients/repositories/LegalPersonRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/../Clients/Clients/src/main/java/nttdata/grupouno/com/Clients/repositories/LegalPersonRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Clients/Clients/src/main/java/nttdata/grupouno/com/Clients/repositories/NaturalPersonRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/../Clients/Clients/src/main/java/nttdata/grupouno/com/Clients/repositories/NaturalPersonRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Clients/Clients/src/main/java/nttdata/grupouno/com/Clients/services/LegalPersonService.java" beforeDir="false" afterPath="$PROJECT_DIR$/../Clients/Clients/src/main/java/nttdata/grupouno/com/Clients/services/LegalPersonService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Clients/Clients/src/main/java/nttdata/grupouno/com/Clients/services/NaturalPersonService.java" beforeDir="false" afterPath="$PROJECT_DIR$/../Clients/Clients/src/main/java/nttdata/grupouno/com/Clients/services/NaturalPersonService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Clients/Clients/src/main/java/nttdata/grupouno/com/Clients/services/implementation/LegalPersonImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/../Clients/Clients/src/main/java/nttdata/grupouno/com/Clients/services/implementation/LegalPersonImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Clients/Clients/src/main/java/nttdata/grupouno/com/Clients/services/implementation/NaturalPersonServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/../Clients/Clients/src/main/java/nttdata/grupouno/com/Clients/services/implementation/NaturalPersonServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Clients/Clients/target/classes/nttdata/grupouno/com/Clients/controllers/LegalPersonController.class" beforeDir="false" afterPath="$PROJECT_DIR$/../Clients/Clients/target/classes/nttdata/grupouno/com/Clients/controllers/LegalPersonController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Clients/Clients/target/classes/nttdata/grupouno/com/Clients/controllers/NaturalPersonController.class" beforeDir="false" afterPath="$PROJECT_DIR$/../Clients/Clients/target/classes/nttdata/grupouno/com/Clients/controllers/NaturalPersonController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Clients/Clients/target/classes/nttdata/grupouno/com/Clients/models/Clients.class" beforeDir="false" afterPath="$PROJECT_DIR$/../Clients/Clients/target/classes/nttdata/grupouno/com/Clients/models/Clients.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Clients/Clients/target/classes/nttdata/grupouno/com/Clients/models/LegalPerson.class" beforeDir="false" afterPath="$PROJECT_DIR$/../Clients/Clients/target/classes/nttdata/grupouno/com/Clients/models/LegalPerson.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Clients/Clients/target/classes/nttdata/grupouno/com/Clients/models/NaturalPerson$NaturalPersonBuilder.class" beforeDir="false" afterPath="$PROJECT_DIR$/../Clients/Clients/target/classes/nttdata/grupouno/com/Clients/models/NaturalPerson$NaturalPersonBuilder.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Clients/Clients/target/classes/nttdata/grupouno/com/Clients/models/NaturalPerson.class" beforeDir="false" afterPath="$PROJECT_DIR$/../Clients/Clients/target/classes/nttdata/grupouno/com/Clients/models/NaturalPerson.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Clients/Clients/target/classes/nttdata/grupouno/com/Clients/repositories/LegalPersonRepository.class" beforeDir="false" afterPath="$PROJECT_DIR$/../Clients/Clients/target/classes/nttdata/grupouno/com/Clients/repositories/LegalPersonRepository.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Clients/Clients/target/classes/nttdata/grupouno/com/Clients/repositories/NaturalPersonRepository.class" beforeDir="false" afterPath="$PROJECT_DIR$/../Clients/Clients/target/classes/nttdata/grupouno/com/Clients/repositories/NaturalPersonRepository.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Clients/Clients/target/classes/nttdata/grupouno/com/Clients/services/LegalPersonService.class" beforeDir="false" afterPath="$PROJECT_DIR$/../Clients/Clients/target/classes/nttdata/grupouno/com/Clients/services/LegalPersonService.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Clients/Clients/target/classes/nttdata/grupouno/com/Clients/services/NaturalPersonService.class" beforeDir="false" afterPath="$PROJECT_DIR$/../Clients/Clients/target/classes/nttdata/grupouno/com/Clients/services/NaturalPersonService.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Clients/Clients/target/classes/nttdata/grupouno/com/Clients/services/implementation/LegalPersonImpl.class" beforeDir="false" afterPath="$PROJECT_DIR$/../Clients/Clients/target/classes/nttdata/grupouno/com/Clients/services/implementation/LegalPersonImpl.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Clients/Clients/target/classes/nttdata/grupouno/com/Clients/services/implementation/NaturalPersonServiceImpl.class" beforeDir="false" afterPath="$PROJECT_DIR$/../Clients/Clients/target/classes/nttdata/grupouno/com/Clients/services/implementation/NaturalPersonServiceImpl.class" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
+  </component>
+  <component name="MarkdownSettingsMigration">
+    <option name="stateVersion" value="1" />
+  </component>
+  <component name="ProjectId" id="2EsfVrn8HZu4Y1RQzvnMIddi8vF" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "last_opened_file_path": "C:/Users/jcastiro/Documents/GitHub/Entregable_uno/Config-Data"
+  }
+}]]></component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="a3807183-4dfd-469a-aae2-68803954cbb3" name="Changes" comment="" />
+      <created>1663389238985</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1663389238985</updated>
+    </task>
+    <servers />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+</project>

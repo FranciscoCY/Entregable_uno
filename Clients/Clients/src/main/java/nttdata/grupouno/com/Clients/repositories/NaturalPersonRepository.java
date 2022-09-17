@@ -3,10 +3,11 @@ package nttdata.grupouno.com.Clients.repositories;
 import nttdata.grupouno.com.Clients.models.NaturalPerson;
 import org.springframework.data.mongodb.repository.ReactiveMongoRepository;
 import reactor.core.publisher.Flux;
+import reactor.core.publisher.Mono;
 
 public interface NaturalPersonRepository extends ReactiveMongoRepository<NaturalPerson,Long> {
 
-    Flux<NaturalPerson> findByDocumentNumber(Long documentNumber);
+    Mono<NaturalPerson> findByDocumentNumber(Long documentNumber);
 
     Flux<NaturalPerson> findByNames(String names);
 

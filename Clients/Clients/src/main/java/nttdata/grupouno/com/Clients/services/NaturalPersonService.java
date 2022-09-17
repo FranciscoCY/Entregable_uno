@@ -11,7 +11,7 @@ public interface NaturalPersonService  {
     Mono<NaturalPerson> createNaturalPerson(NaturalPerson naturalPerson);
     Mono<NaturalPerson> updateNaturalPerson(NaturalPerson naturalPerson);
     Mono<Void> deleteNaturalPerson(Long id);
-    Flux<NaturalPerson> findByDocumentNumber(Long documentNumber);
+    Mono<NaturalPerson> findByDocumentNumber(Long documentNumber);
     Flux<NaturalPerson> findByNames(String names);
     Flux<NaturalPerson> findByLastNames(String lastNames);
 }

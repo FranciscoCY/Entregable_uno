@@ -11,6 +11,6 @@ public interface LegalPersonService {
     Mono<LegalPerson> createLegalPerson(LegalPerson legalPerson);
     Mono<LegalPerson> updateLegalPerson(LegalPerson legalPerson,Long id);
     Mono<Void> deleteLegalPerson(Long id);
-    Flux<LegalPerson> findByRuc(Long ruc);
+    Mono<LegalPerson> findByRuc(Long ruc);
     Flux<LegalPerson> findByBusinessName(String businessName);
 }

@@ -24,28 +24,34 @@ public class NaturalPersonController {
     NaturalPersonService naturalPersonService;
 
     @GetMapping
-    public Flux<NaturalPerson> findAll(){
+    public Flux<NaturalPerson> findAll() {
         return naturalPersonService.listAllNaturalPerson();
     }
 
     @GetMapping("/{id}")
-    public Mono<NaturalPerson> findAllById(@PathVariable Long id){
+    public Mono<NaturalPerson> findAllById(@PathVariable Long id) {
         return naturalPersonService.findAllById(id);
     }
 
     @PostMapping("/add")
-    public Mono<ResponseEntity<Map<String,Object>>> addNaturalPerson(@Valid @RequestBody final Mono<NaturalPerson> person){
+    public Mono<ResponseEntity<Map<String, Object>>> addNaturalPerson(@Valid @RequestBody final Mono<NaturalPerson> person) {
 
-        Map<String,Object> respuesta=new HashMap<>();
-        return  person.flatMap(p -> {
-            System.out.println(p);
-            return naturalPersonService.createNaturalPerson(p).map(s ->{
-                respuesta.put("p",s);
-                return  ResponseEntity.created(URI.create("/api/clients"))
+        Map<String, Object> respuesta = new HashMap<>();
+        return person.flatMap(p -> {
+
+            return naturalPersonService.findByDocumentNumber(p.getDocumentNumber()).flatMap(a -> {
+                respuesta.put("Persona Natural Duplicada", a);
+                return Mono.just(ResponseEntity.badRequest()
                         .contentType(MediaType.APPLICATION_JSON)
-                        .body(respuesta);
-            });
-        }).onErrorResume(ex->{
+                        .body(respuesta));
+            }).switchIfEmpty(naturalPersonService.createNaturalPerson(p).map(s -> {
+                        respuesta.put("Persona Natural Creada", s);
+                        return ResponseEntity.created(URI.create("/api/clients"))
+                                .contentType(MediaType.APPLICATION_JSON)
+                                .body(respuesta);
+                    })
+            );
+        }).onErrorResume(ex -> {
             return Mono.just(ex).cast(WebExchangeBindException.class)
                     .flatMap(e -> Mono.just(e.getFieldErrors()))
                     .flatMapMany(Flux::fromIterable).map(fieldError ->
@@ -58,27 +64,27 @@ public class NaturalPersonController {
     }
 
     @PostMapping("/update")
-    Mono<NaturalPerson> updatePersona(@RequestBody NaturalPerson persona){
+    Mono<NaturalPerson> updatePersona(@RequestBody NaturalPerson persona) {
         return naturalPersonService.updateNaturalPerson(persona);
     }
 
     @PostMapping("/delete/{id}")
-    void deletePersona(@PathVariable("id") Long id){
+    void deletePersona(@PathVariable("id") Long id) {
         naturalPersonService.deleteNaturalPerson(id).subscribe();
     }
 
     @GetMapping("/findByDocumentNumber/{documentNumber}")
-    public Flux<NaturalPerson> findByDocumentNumber(@PathVariable Long documentNumber){
+    public Mono<NaturalPerson> findByDocumentNumber(@PathVariable Long documentNumber) {
         return naturalPersonService.findByDocumentNumber(documentNumber);
     }
 
     @GetMapping("/findByNames/{names}")
-    public Flux<NaturalPerson> findByNames(@PathVariable String names){
+    public Flux<NaturalPerson> findByNames(@PathVariable String names) {
         return naturalPersonService.findByNames(names);
     }
 
     @GetMapping("/findByLastNames/{lastNames}")
-    public Flux<NaturalPerson> findByLastNames(@PathVariable String lastNames){
+    public Flux<NaturalPerson> findByLastNames(@PathVariable String lastNames) {
         return naturalPersonService.findByLastNames(lastNames);
     }
 }
