@@ -30,7 +30,7 @@ public class ClientsController {
     }
 
     @GetMapping("/{id}")
-    public Mono<Clients> findAllById(@PathVariable final Long id){
+    public Mono<Clients> findAllById(@PathVariable final String id){
         return clientsService.findAllById(id).flatMap(clients -> {
             return  Mono.just(clients);
         });
@@ -71,7 +71,7 @@ public class ClientsController {
 
 
     @PutMapping("/{id}")
-    public Mono<ResponseEntity<Clients>> updateClient(@Valid @RequestBody final Clients client,@PathVariable final Long id){
+    public Mono<ResponseEntity<Clients>> updateClient(@Valid @RequestBody final Clients client,@PathVariable final String id){
         return clientsService.updateClient(client,id)
                 .map(c -> ResponseEntity.created(
                         URI.create("/api/clients/".concat(c.getId().toString())))
@@ -80,7 +80,7 @@ public class ClientsController {
     }
 
     @DeleteMapping("/{id}")
-    public Mono<ResponseEntity<Void>> deleteClient(@PathVariable final Long id){
+    public Mono<ResponseEntity<Void>> deleteClient(@PathVariable final String id){
         return clientsService.findAllById(id).flatMap(c ->{
             return clientsService.deleteClient(c.getId())
                     .then(Mono.just(new ResponseEntity<Void>(HttpStatus.NO_CONTENT)));

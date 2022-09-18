@@ -29,7 +29,7 @@ public class NaturalPersonController {
     }
 
     @GetMapping("/{id}")
-    public Mono<NaturalPerson> findAllById(@PathVariable Long id) {
+    public Mono<NaturalPerson> findAllById(@PathVariable String id) {
         return naturalPersonService.findAllById(id);
     }
 
@@ -69,7 +69,7 @@ public class NaturalPersonController {
     }
 
     @PostMapping("/delete/{id}")
-    void deletePersona(@PathVariable("id") Long id) {
+    void deletePersona(@PathVariable("id") String id) {
         naturalPersonService.deleteNaturalPerson(id).subscribe();
     }
 

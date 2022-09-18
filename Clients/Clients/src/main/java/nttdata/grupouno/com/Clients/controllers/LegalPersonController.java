@@ -35,7 +35,7 @@ public class LegalPersonController {
     }
 
     @GetMapping("/{id}")
-    public Mono<LegalPerson> findAllById(@PathVariable final Long id) {
+    public Mono<LegalPerson> findAllById(@PathVariable final String id) {
         return legalPersonService.findAllById(id).flatMap(l -> {
             return Mono.just(l);
         });
@@ -84,7 +84,7 @@ public class LegalPersonController {
     }
 
     @PutMapping("/{id}")
-    public Mono<ResponseEntity<LegalPerson>> updateLegalPersona(@Valid @RequestBody final LegalPerson legalPerson, @PathVariable final Long id) {
+    public Mono<ResponseEntity<LegalPerson>> updateLegalPersona(@Valid @RequestBody final LegalPerson legalPerson, @PathVariable final String id) {
         return legalPersonService.updateLegalPerson(legalPerson, id)
                 .map(l -> ResponseEntity.created(
                                 URI.create("/api/legalPerson/".concat(l.getId().toString())))
@@ -93,7 +93,7 @@ public class LegalPersonController {
     }
 
     @DeleteMapping("/{id}")
-    public Mono<ResponseEntity<Void>> deleteLegalPerson(@PathVariable final Long id) {
+    public Mono<ResponseEntity<Void>> deleteLegalPerson(@PathVariable final String id) {
         return legalPersonService.findAllById(id).flatMap(l -> {
             return legalPersonService.deleteLegalPerson(l.getId())
                     .then(Mono.just(new ResponseEntity<Void>(HttpStatus.NO_CONTENT)));

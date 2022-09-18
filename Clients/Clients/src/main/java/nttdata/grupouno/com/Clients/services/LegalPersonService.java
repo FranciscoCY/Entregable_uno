@@ -7,10 +7,10 @@ import reactor.core.publisher.Mono;
 public interface LegalPersonService {
 
     Flux<LegalPerson> listAllLegalPerson();
-    Mono<LegalPerson> findAllById(Long id);
+    Mono<LegalPerson> findAllById(String id);
     Mono<LegalPerson> createLegalPerson(LegalPerson legalPerson);
-    Mono<LegalPerson> updateLegalPerson(LegalPerson legalPerson,Long id);
-    Mono<Void> deleteLegalPerson(Long id);
+    Mono<LegalPerson> updateLegalPerson(LegalPerson legalPerson,String id);
+    Mono<Void> deleteLegalPerson(String id);
     Mono<LegalPerson> findByRuc(Long ruc);
     Flux<LegalPerson> findByBusinessName(String businessName);
 }

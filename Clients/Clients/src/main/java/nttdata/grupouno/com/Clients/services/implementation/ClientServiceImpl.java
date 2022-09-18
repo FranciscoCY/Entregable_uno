@@ -8,6 +8,8 @@ import org.springframework.stereotype.Service;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
+import java.util.UUID;
+
 @Service
 public class ClientServiceImpl implements ClientsService {
 
@@ -22,7 +24,7 @@ public class ClientServiceImpl implements ClientsService {
     }
 
     @Override
-    public Mono<Clients> findAllById(Long id) {
+    public Mono<Clients> findAllById(String id) {
         return clientesRepository.findById(id).flatMap(clients -> {
             return Mono.just(clients);
         });
@@ -33,12 +35,13 @@ public class ClientServiceImpl implements ClientsService {
         if(clients == null){
             return null;
         }else{
+            clients.setId(UUID.randomUUID().toString());
             return clientesRepository.save(clients);
         }
     }
 
     @Override
-    public Mono<Clients> updateClient(Clients client, Long id) {
+    public Mono<Clients> updateClient(Clients client, String id) {
         return  findAllById(id).flatMap(c ->{
             c.setMail(client.getMail());
             return clientesRepository.save(c);
@@ -46,7 +49,7 @@ public class ClientServiceImpl implements ClientsService {
     }
 
     @Override
-    public Mono<Void> deleteClient(Long id) {
+    public Mono<Void> deleteClient(String id) {
         return findAllById(id).flatMap(c -> clientesRepository.deleteById(c.getId()));
     }
 

@@ -7,10 +7,10 @@ import reactor.core.publisher.Mono;
 public interface NaturalPersonService  {
 
     Flux<NaturalPerson> listAllNaturalPerson();
-    Mono<NaturalPerson> findAllById(Long id);
+    Mono<NaturalPerson> findAllById(String id);
     Mono<NaturalPerson> createNaturalPerson(NaturalPerson naturalPerson);
     Mono<NaturalPerson> updateNaturalPerson(NaturalPerson naturalPerson);
-    Mono<Void> deleteNaturalPerson(Long id);
+    Mono<Void> deleteNaturalPerson(String id);
     Mono<NaturalPerson> findByDocumentNumber(Long documentNumber);
     Flux<NaturalPerson> findByNames(String names);
     Flux<NaturalPerson> findByLastNames(String lastNames);

@@ -15,9 +15,10 @@ import javax.validation.constraints.*;
 @Data @Builder @NoArgsConstructor  @AllArgsConstructor
 public class LegalPerson {
     @Id
-    private Long id;
+    private String id;
 
     @Positive(message = "El Ruc debe ser mayor a cero")
+    @NotNull(message = "El Ruc no debe ser nulo")
     private Long ruc;
 
     @NotEmpty(message = "La Razón Social no puede ser vacio")
