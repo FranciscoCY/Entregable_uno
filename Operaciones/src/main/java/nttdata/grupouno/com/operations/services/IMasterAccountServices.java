@@ -8,7 +8,7 @@ public interface IMasterAccountServices {
     Mono<MasterAccountModel> createAccount(MasterAccountModel account);
     Mono<MasterAccountModel> findByAccount(String id);
     Flux<MasterAccountModel> findAllAccount();
-    Mono<MasterAccountModel> updateAccount(MasterAccountModel account);
+    Mono<MasterAccountModel> updateAccount(MasterAccountModel account, String id);
     Mono<Void> deleteBydId(String id);
     Flux<MasterAccountModel> findStartDate(String date);
 }
