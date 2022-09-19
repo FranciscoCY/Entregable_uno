@@ -25,8 +25,13 @@ public class ClientsController {
     @Autowired
     private ClientsService clientsService;
 
-    @GetMapping
-    public Flux<ClientsDto> findAll(){
+    @GetMapping("/natural")
+    public Flux<ClientsDto> findAllNatural(Long id){
+        return clientsService.listAllClients();
+    }
+
+    @GetMapping("/legal")
+    public Flux<ClientsDto> findAllLegal(Long id){
         return clientsService.listAllClients();
     }
 

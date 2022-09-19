@@ -32,7 +32,7 @@ public class ClientServiceImpl implements ClientsService {
     }
 
     @Override
-    public Flux<ClientsDto> listAllClients() {
+    public Flux<ClientsDto> listAllClients(Long id) {
         return clientesRepository.findAll().flatMap(clients -> {
             ClientsDto dto=clientsConvert.convertDTO(clients);
             LegalPerson legalPerson1=new LegalPerson();
@@ -71,7 +71,6 @@ public class ClientServiceImpl implements ClientsService {
     @Override
     public Mono<Clients> updateClient(Clients client, String id) {
         return  findAllById(id).flatMap(c ->{
-            c.setMail(client.getMail());
             return clientesRepository.save(c);
         });
     }

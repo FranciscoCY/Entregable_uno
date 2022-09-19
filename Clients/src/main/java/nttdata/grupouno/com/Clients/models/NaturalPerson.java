@@ -9,6 +9,7 @@ import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.Document;
 
+import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Positive;
@@ -36,5 +37,9 @@ public class NaturalPerson {
 
     @NotEmpty(message = "El Genero no puede ser vacio")
     private String gender;
+
+    @NotEmpty(message = "El correo no debe estar vacio")
+    @Email(regexp = ".+[@].+[\\.].+")
+    private String mail;
 
 }

@@ -28,7 +28,4 @@ public class Clients {
     @NotNull(message = "El Id Persona no puede ser vacio")
     private String idPerson;
 
-    @NotEmpty(message = "El correo no debe estar vacio")
-    @Email(regexp = ".+[@].+[\\.].+")
-    private String mail;
 }

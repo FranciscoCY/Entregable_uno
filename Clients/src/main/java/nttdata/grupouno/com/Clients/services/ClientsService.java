@@ -6,7 +6,7 @@ import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
 public interface ClientsService {
-    Flux<ClientsDto> listAllClients();
+    Flux<ClientsDto> listAllClients(Long id);
     Mono<Clients> findAllById(String id);
     Mono<Clients> createClient(Clients clients);
     Mono<Clients> updateClient(Clients client,String id);

@@ -23,4 +23,8 @@ public class LegalPerson {
 
     @NotEmpty(message = "La Razón Social no puede ser vacio")
     private String businessName;
+
+    @NotEmpty(message = "El correo no debe estar vacio")
+    @Email(regexp = ".+[@].+[\\.].+")
+    private String mail;
 }
