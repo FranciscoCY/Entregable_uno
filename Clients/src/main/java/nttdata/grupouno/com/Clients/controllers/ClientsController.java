@@ -1,9 +1,10 @@
 package nttdata.grupouno.com.Clients.controllers;
 
 import nttdata.grupouno.com.Clients.models.Clients;
-import nttdata.grupouno.com.Clients.models.dto.ClientsDto;
-import nttdata.grupouno.com.Clients.repositories.ClientesRepository;
+import nttdata.grupouno.com.Clients.models.dto.ClientsLegal;
+import nttdata.grupouno.com.Clients.models.dto.ClientsNatural;
 import nttdata.grupouno.com.Clients.services.ClientsService;
+import nttdata.grupouno.com.Clients.services.dto.ClientsLegalService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -25,14 +26,23 @@ public class ClientsController {
     @Autowired
     private ClientsService clientsService;
 
-    @GetMapping("/natural")
-    public Flux<ClientsDto> findAllNatural(Long id){
-        return clientsService.listAllClients();
-    }
+    @Autowired
+    private ClientsLegalService clientsLegalService;
 
     @GetMapping("/legal")
-    public Flux<ClientsDto> findAllLegal(Long id){
-        return clientsService.listAllClients();
+    public Flux<ClientsLegal> findAllLegal(){
+        return clientsService.listAllClientsLegal();
+    }
+
+    @GetMapping("/legal/{id}")
+    public Mono<ClientsLegal> findAllByIdLegal(@PathVariable final String id){
+        System.out.println(id);
+        return clientsLegalService.findAllById(id);
+    }
+
+    @GetMapping("/natural")
+    public Flux<ClientsNatural> findAllNatural(){
+        return clientsService.listAllClientsNatural();
     }
 
     @GetMapping("/{id}")
@@ -44,10 +54,15 @@ public class ClientsController {
 
     @GetMapping("/findByIdTypePerson/{idTypePerson}")
     public Flux<Clients> findByIdTypePerson(@PathVariable(value ="idTypePerson" ) final Long idTypePerson){
-        System.out.println(idTypePerson);
         return clientsService.findByIdTypePerson(idTypePerson).flatMap(clients ->{
-            System.out.println(clients);
             return Flux.just(clients);
+        });
+    }
+
+    @GetMapping("/findByIdPerson/{idPerson}")
+    public Mono<Clients> findByIdPerson(@PathVariable(value ="idPerson" ) final String idPerson){
+        return clientsService.findByIdPerson(idPerson).flatMap(clients ->{
+            return Mono.just(clients);
         });
     }
 

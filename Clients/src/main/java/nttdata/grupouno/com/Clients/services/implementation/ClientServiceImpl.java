@@ -3,7 +3,9 @@ package nttdata.grupouno.com.Clients.services.implementation;
 import nttdata.grupouno.com.Clients.convert.ClientsConvert;
 import nttdata.grupouno.com.Clients.models.Clients;
 import nttdata.grupouno.com.Clients.models.LegalPerson;
-import nttdata.grupouno.com.Clients.models.dto.ClientsDto;
+import nttdata.grupouno.com.Clients.models.NaturalPerson;
+import nttdata.grupouno.com.Clients.models.dto.ClientsLegal;
+import nttdata.grupouno.com.Clients.models.dto.ClientsNatural;
 import nttdata.grupouno.com.Clients.repositories.ClientesRepository;
 import nttdata.grupouno.com.Clients.services.ClientsService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,25 +29,48 @@ public class ClientServiceImpl implements ClientsService {
 
     private final WebClient webClient;
 
-    public ClientServiceImpl(WebClient.Builder webClientBuilder){
-        this.webClient= webClientBuilder.baseUrl("http://localhost:8002").build();
+    public ClientServiceImpl(WebClient.Builder webClientBuilder) {
+        this.webClient = webClientBuilder.baseUrl("http://localhost:8002").build();
     }
 
     @Override
-    public Flux<ClientsDto> listAllClients(Long id) {
+    public Flux<ClientsLegal> listAllClientsLegal() {
         return clientesRepository.findAll().flatMap(clients -> {
-            ClientsDto dto=clientsConvert.convertDTO(clients);
-            LegalPerson legalPerson1=new LegalPerson();
-            List<LegalPerson> list=new ArrayList<>();
+            ClientsLegal dto = clientsConvert.convertLegalDTO(clients);
+            LegalPerson legalPerson1 = new LegalPerson();
+            List<LegalPerson> list = new ArrayList<>();
 
-            Mono<LegalPerson> legalPersonMono= this.webClient.get().uri("/api/legalPerson/{id}",dto.getIdPerson()).retrieve().bodyToMono(LegalPerson.class);
+            Mono<LegalPerson> legalPersonMono = this.webClient.get().uri("/api/legalPerson/{id}", dto.getIdPerson()).retrieve().bodyToMono(LegalPerson.class);
 
-            return legalPersonMono.flatMap(x->{
+            return legalPersonMono.flatMap(x -> {
                 legalPerson1.setId(x.getId());
                 legalPerson1.setRuc(x.getRuc());
                 legalPerson1.setBusinessName(x.getBusinessName());
                 list.add(legalPerson1);
                 dto.setLegalPersonList(list);
+                return Mono.just(dto);
+            });
+        });
+    }
+    @Override
+    public Flux<ClientsNatural> listAllClientsNatural() {
+        return clientesRepository.findAll().flatMap(clients -> {
+            ClientsNatural dto = clientsConvert.convertNaturalDTO(clients);
+            NaturalPerson naturalPerson = new NaturalPerson();
+            List<NaturalPerson> list = new ArrayList<>();
+
+            Mono<NaturalPerson> naturalPersonMono = this.webClient.get().uri("/api/naturalPerson/{id}", dto.getIdPerson()).retrieve().bodyToMono(NaturalPerson.class);
+
+            return naturalPersonMono.flatMap(x -> {
+                naturalPerson.setId(x.getId());
+                naturalPerson.setDocumentType(x.getDocumentType());
+                naturalPerson.setDocumentNumber(x.getDocumentNumber());
+                naturalPerson.setNames(x.getNames());
+                naturalPerson.setLastNames(x.getLastNames());
+                naturalPerson.setGender(x.getGender());
+                naturalPerson.setMail(x.getMail());
+                list.add(naturalPerson);
+                dto.setNaturalPersonList(list);
                 return Mono.just(dto);
             });
         });
@@ -60,9 +85,9 @@ public class ClientServiceImpl implements ClientsService {
 
     @Override
     public Mono<Clients> createClient(Clients clients) {
-        if(clients == null){
+        if (clients == null) {
             return null;
-        }else{
+        } else {
             clients.setId(UUID.randomUUID().toString());
             return clientesRepository.save(clients);
         }
@@ -70,7 +95,7 @@ public class ClientServiceImpl implements ClientsService {
 
     @Override
     public Mono<Clients> updateClient(Clients client, String id) {
-        return  findAllById(id).flatMap(c ->{
+        return findAllById(id).flatMap(c -> {
             return clientesRepository.save(c);
         });
     }
@@ -84,6 +109,13 @@ public class ClientServiceImpl implements ClientsService {
     public Flux<Clients> findByIdTypePerson(Long idTypePerson) {
 
         return clientesRepository.findByIdTypePerson(idTypePerson).flatMap(clients -> {
+            return Mono.just(clients);
+        });
+    }
+
+    @Override
+    public Mono<Clients> findByIdPerson(String id) {
+        return clientesRepository.findByIdPerson(id).flatMap(clients ->{
             return Mono.just(clients);
         });
     }
