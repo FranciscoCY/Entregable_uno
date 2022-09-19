@@ -23,27 +23,30 @@ public class MasterAccountServices implements IMasterAccountServices {
     public Mono<MasterAccountModel> createAccount(MasterAccountModel account) {
         account.setId(UUID.randomUUID().toString());
         account.setType(new TypeModel(account.getType().getCode(), null, null, null, null));
-        
-        return accountRepository.save(account).flatMap(c -> {
-            c.setType(typeAccountRepository.findById(c.getType().getCode()).block());
-            return Mono.just(c);
-        });
+
+        return accountRepository.save(account)
+                .flatMap(c -> typeAccountRepository.findById(c.getType().getCode()).flatMap(x -> {
+                    c.setType(x);
+                    return Mono.just(c);
+                }));
     }
 
     @Override
     public Mono<MasterAccountModel> findByAccount(String id) {
-        return accountRepository.findById(id).flatMap(c -> {
-            c.setType(typeAccountRepository.findById(c.getType().getCode()).block());
-            return Mono.just(c);
-        });
+        return accountRepository.findById(id)
+                .flatMap(c -> typeAccountRepository.findById(c.getType().getCode()).flatMap(x -> {
+                    c.setType(x);
+                    return Mono.just(c);
+                }));
     }
 
     @Override
     public Flux<MasterAccountModel> findAllAccount() {
-        return accountRepository.findAll().flatMap(c -> {
-            c.setType(typeAccountRepository.findById(c.getType().getCode()).block());
-            return Flux.just(c);
-        });
+        return accountRepository.findAll()
+                .flatMap(c -> typeAccountRepository.findById(c.getType().getCode()).flatMap(x -> {
+                    c.setType(x);
+                    return Mono.just(c);
+                }));
     }
 
     @Override
