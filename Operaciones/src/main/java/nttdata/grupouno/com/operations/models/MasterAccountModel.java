@@ -24,9 +24,7 @@ public class MasterAccountModel {
     @NotEmpty
     private String numberAccount;
     @NotNull
-    private TypeModel type; //Activo - Pasivo
-    @NotNull
-    private TypeModel subType; //Ahorro - Cuenta Corriente - Plazo Fijo / Personal - Empresarial
+    private TypeModel type; //Ahorro - Cuenta Corriente - Plazo Fijo / Personal - Empresarial
     @NotEmpty
     private String startDate;
     @NotEmpty
@@ -39,10 +37,4 @@ public class MasterAccountModel {
     private String coinType; // PEN - USD
     @NotNull
     private TypeModel[] clients;
-    @NotNull
-    @Min(0)
-    private int countLimitOperation;
-    @NotNull
-    @DecimalMin(value = "0.00")
-    private Double amountLimit;
 }
