@@ -1,7 +1,9 @@
 package nttdata.grupouno.com.operations.services.implementation;
 
 import nttdata.grupouno.com.operations.models.MasterAccountModel;
+import nttdata.grupouno.com.operations.models.TypeModel;
 import nttdata.grupouno.com.operations.repositories.implementation.MasterAccountRepository;
+import nttdata.grupouno.com.operations.repositories.implementation.TypeAccountRepository;
 import nttdata.grupouno.com.operations.services.IMasterAccountServices;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -14,20 +16,34 @@ import java.util.UUID;
 public class MasterAccountServices implements IMasterAccountServices {
     @Autowired
     private MasterAccountRepository accountRepository;
+    @Autowired
+    private TypeAccountRepository typeAccountRepository;
 
     @Override
     public Mono<MasterAccountModel> createAccount(MasterAccountModel account) {
         account.setId(UUID.randomUUID().toString());
-        return accountRepository.save(account);
+        account.setType(new TypeModel(account.getType().getCode(), null, null, null, null));
+        
+        return accountRepository.save(account).flatMap(c -> {
+            c.setType(typeAccountRepository.findById(c.getType().getCode()).block());
+            return Mono.just(c);
+        });
     }
 
+    @Override
     public Mono<MasterAccountModel> findByAccount(String id) {
-        return accountRepository.findById(id);
+        return accountRepository.findById(id).flatMap(c -> {
+            c.setType(typeAccountRepository.findById(c.getType().getCode()).block());
+            return Mono.just(c);
+        });
     }
 
     @Override
     public Flux<MasterAccountModel> findAllAccount() {
-        return accountRepository.findAll();
+        return accountRepository.findAll().flatMap(c -> {
+            c.setType(typeAccountRepository.findById(c.getType().getCode()).block());
+            return Flux.just(c);
+        });
     }
 
     @Override

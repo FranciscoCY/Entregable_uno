@@ -17,6 +17,6 @@ public class TypeModel {
     private String code;
     private String description;
     private String status;
-    private int countLimitOperation;
+    private Integer countLimitOperation;
     private Double amountCommission;
 }

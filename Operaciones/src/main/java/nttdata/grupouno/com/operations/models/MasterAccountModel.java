@@ -3,13 +3,10 @@ package nttdata.grupouno.com.operations.models;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-
 import org.springframework.boot.autoconfigure.domain.EntityScan;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
-
 import javax.validation.constraints.DecimalMin;
-import javax.validation.constraints.Min;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 
@@ -24,7 +21,7 @@ public class MasterAccountModel {
     @NotEmpty
     private String numberAccount;
     @NotNull
-    private TypeModel type; //Ahorro - Cuenta Corriente - Plazo Fijo / Personal - Empresarial
+    private TypeModel type; // Ahorro - Cuenta Corriente - Plazo Fijo / Personal - Empresarial
     @NotEmpty
     private String startDate;
     @NotEmpty
@@ -36,5 +33,5 @@ public class MasterAccountModel {
     @NotEmpty
     private String coinType; // PEN - USD
     @NotNull
-    private TypeModel[] clients;
+    private ClientModel[] clients;
 }
