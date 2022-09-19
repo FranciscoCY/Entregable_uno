@@ -1,6 +1,7 @@
 package nttdata.grupouno.com.Clients.controllers;
 
 import nttdata.grupouno.com.Clients.models.Clients;
+import nttdata.grupouno.com.Clients.models.dto.ClientsDto;
 import nttdata.grupouno.com.Clients.repositories.ClientesRepository;
 import nttdata.grupouno.com.Clients.services.ClientsService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,7 +26,7 @@ public class ClientsController {
     private ClientsService clientsService;
 
     @GetMapping
-    public Flux<Clients> findAll(){
+    public Flux<ClientsDto> findAll(){
         return clientsService.listAllClients();
     }
 

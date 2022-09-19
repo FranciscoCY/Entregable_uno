@@ -25,9 +25,8 @@ public class Clients {
     @NotNull(message = "El Tipo Persona no puede ser vacio")
     private Long idTypePerson;
 
-    @Positive(message = "El Id Persona debe ser diferente a cero")
     @NotNull(message = "El Id Persona no puede ser vacio")
-    private Long idPerson;
+    private String idPerson;
 
     @NotEmpty(message = "El correo no debe estar vacio")
     @Email(regexp = ".+[@].+[\\.].+")
