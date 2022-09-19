@@ -16,9 +16,9 @@ public class MasterAccountServices implements IMasterAccountServices {
     private MasterAccountRepository accountRepository;
 
     @Override
-    public void createAccount(MasterAccountModel account){
+    public Mono<MasterAccountModel> createAccount(MasterAccountModel account){
         account.setId(UUID.randomUUID().toString());
-        accountRepository.save(account).subscribe();
+        return accountRepository.save(account);
     }
     public Mono<MasterAccountModel> findByAccount(String id){
         return accountRepository.findById(id);

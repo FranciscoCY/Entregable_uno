@@ -20,22 +20,19 @@ public class MasterAccountModel {
     private String id;
     @NotEmpty
     private String numberAccount;
-    @NotEmpty
     private TypeModel type; //Activo - Pasivo
-    @NotEmpty
     private TypeModel subType; //Ahorro - Cuenta Corriente - Plazo Fijo / Personal - Empresarial
     @NotEmpty
     private String startDate;
     @NotEmpty
     private String status; // A:Activo - I:Inactivo - C:Cancelado
     @NotEmpty
-    private String endData;
+    private String endDate;
     @NotNull
     @DecimalMin(value = "0.00", message = "El monto no puede ser negativo")
     private Double amount;
     @NotEmpty
     private String coinType; // PEN - USD
-    @NotEmpty
     private TypeModel[] clients;
     @NotNull
     @Min(0)

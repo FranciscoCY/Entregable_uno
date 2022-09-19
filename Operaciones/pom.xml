@@ -15,6 +15,7 @@
 	<description>Operaciones pasiva / activas - cuentas asociadas</description>
 	<properties>
 		<java.version>11</java.version>
+		<spring-cloud.version>2021.0.4</spring-cloud.version>
 	</properties>
 	<dependencies>
 		<dependency>
@@ -33,7 +34,6 @@
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-webflux</artifactId>
 		</dependency>
-
 		<dependency>
 			<groupId>org.projectlombok</groupId>
 			<artifactId>lombok</artifactId>
@@ -58,7 +58,6 @@
 			<artifactId>spring-cloud-starter-bootstrap</artifactId>
 		</dependency>
     </dependencies>
-
 	<dependencyManagement>
 		<dependencies>
 			<dependency>
@@ -70,7 +69,6 @@
 			</dependency>
 		</dependencies>
 	</dependencyManagement>
-
 	<build>
 		<plugins>
 			<plugin>

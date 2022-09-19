@@ -5,7 +5,7 @@ import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
 public interface IMasterAccountServices {
-    void createAccount(MasterAccountModel account);
+    Mono<MasterAccountModel> createAccount(MasterAccountModel account);
     Mono<MasterAccountModel> findByAccount(String id);
     Flux<MasterAccountModel> findAllAccount();
     Mono<MasterAccountModel> updateAccount(MasterAccountModel account);
