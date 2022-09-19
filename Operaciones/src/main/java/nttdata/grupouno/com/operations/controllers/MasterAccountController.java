@@ -38,7 +38,7 @@ public class MasterAccountController {
                         response.put("errors", list);
                         return Mono.just(ResponseEntity.badRequest().body(response));
                     });*/
-            return Mono.just(ResponseEntity.badRequest().body(response));
+            return Mono.just(response);
         });
     }
     @GetMapping(value = "/all")
