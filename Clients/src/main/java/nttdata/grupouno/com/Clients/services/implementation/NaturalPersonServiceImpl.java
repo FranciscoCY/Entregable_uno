@@ -18,13 +18,10 @@ import java.util.UUID;
 public class NaturalPersonServiceImpl implements NaturalPersonService {
 
     @Autowired
-    NaturalPersonRepository naturalPersonRepository;
+    private NaturalPersonRepository naturalPersonRepository;
 
     @Autowired
-    ClientServiceImpl clientService;
-
-    @Autowired
-    private ClientsConvert clientsConvert;
+    private ClientServiceImpl clientService;
 
     @Autowired
     private NaturalClientsConvert naturalClientsConvert;
