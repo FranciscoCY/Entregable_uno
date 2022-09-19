@@ -7,6 +7,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
+
+import java.util.UUID;
+
 @Service
 public class LegalPersonImpl implements LegalPersonService {
 
@@ -21,7 +24,7 @@ public class LegalPersonImpl implements LegalPersonService {
     }
 
     @Override
-    public Mono<LegalPerson> findAllById(Long id) {
+    public Mono<LegalPerson> findAllById(String id) {
         return legalPersonRepository.findById(id).flatMap(legalPerson -> {
             return Mono.just(legalPerson);
         });
@@ -32,12 +35,13 @@ public class LegalPersonImpl implements LegalPersonService {
         if(legalPerson == null){
             return null;
         }else{
+            legalPerson.setId(UUID.randomUUID().toString());
             return legalPersonRepository.save(legalPerson);
         }
     }
 
     @Override
-    public Mono<LegalPerson> updateLegalPerson(LegalPerson legalPerson, Long id) {
+    public Mono<LegalPerson> updateLegalPerson(LegalPerson legalPerson, String id) {
        return findAllById(id).flatMap(l ->{
            l.setBusinessName(legalPerson.getBusinessName());
            return legalPersonRepository.save(l);
@@ -45,7 +49,7 @@ public class LegalPersonImpl implements LegalPersonService {
     }
 
     @Override
-    public Mono<Void> deleteLegalPerson(Long id) {
+    public Mono<Void> deleteLegalPerson(String id) {
         return findAllById(id).flatMap(l -> legalPersonRepository.deleteById(l.getId()));
     }
 

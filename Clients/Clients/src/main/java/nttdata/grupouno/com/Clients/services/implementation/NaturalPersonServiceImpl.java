@@ -8,6 +8,8 @@ import org.springframework.stereotype.Service;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
+import java.util.UUID;
+
 @Service
 public class NaturalPersonServiceImpl implements NaturalPersonService {
 
@@ -20,7 +22,7 @@ public class NaturalPersonServiceImpl implements NaturalPersonService {
     }
 
     @Override
-    public Mono<NaturalPerson> findAllById(Long id) {
+    public Mono<NaturalPerson> findAllById(String id) {
         return naturalPersonRepository.findById(id);
     }
 
@@ -29,6 +31,7 @@ public class NaturalPersonServiceImpl implements NaturalPersonService {
         if(naturalPerson == null){
             return null;
         }else{
+            naturalPerson.setId(UUID.randomUUID().toString());
             return naturalPersonRepository.save(naturalPerson);
         }
     }
@@ -43,7 +46,7 @@ public class NaturalPersonServiceImpl implements NaturalPersonService {
     }
 
     @Override
-    public Mono<Void> deleteNaturalPerson(Long id) {
+    public Mono<Void> deleteNaturalPerson(String id) {
         return naturalPersonRepository.deleteById(id);
     }
 

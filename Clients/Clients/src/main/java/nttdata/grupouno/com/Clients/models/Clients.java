@@ -19,7 +19,7 @@ import javax.validation.constraints.Positive;
 public class Clients {
 
     @Id
-    private Long id;
+    private String id;
 
     @Positive(message = "El Tipo Persona debe ser diferente a cero")
     @NotNull(message = "El Tipo Persona no puede ser vacio")
