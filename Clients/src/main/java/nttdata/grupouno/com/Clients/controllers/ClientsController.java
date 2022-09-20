@@ -41,8 +41,17 @@ public class ClientsController {
 
     @GetMapping("/legal/{id}")
     public Mono<ClientsLegal> findAllByIdLegal(@PathVariable final String id){
-        System.out.println(id);
         return clientsLegalService.findAllById(id);
+    }
+
+    @GetMapping("/legal/ruc/{ruc}")
+    public Mono<ClientsLegal> findAllByRuc(@PathVariable final Long ruc){
+        return clientsLegalService.findByRuc(ruc);
+    }
+
+    @GetMapping("/legal/businessName/{businessName}")
+    public Flux<ClientsLegal> findAllByBusinessName(@PathVariable final String businessName){
+        return clientsLegalService.findByBusinessName(businessName);
     }
 
     @GetMapping("/natural")
@@ -52,25 +61,21 @@ public class ClientsController {
 
     @GetMapping("/natural/{id}")
     public Mono<NaturalClients> findAllByIdNatural(@PathVariable final String id){
-        //System.out.println(id);
         return clientsNaturalService.findAllById(id);
     }
 
     @GetMapping("/natural/documentNumber/{documentNumber}")
     public Mono<NaturalClients> findAllByDocumentNumberNatural(@PathVariable final Long documentNumber){
-        //System.out.println(id);
         return clientsNaturalService.findByDocumentNumber(documentNumber);
     }
 
     @GetMapping("/natural/names/{names}")
     public Flux<NaturalClients> findAllByNamesNatural(@PathVariable final String names){
-        //System.out.println(id);
         return clientsNaturalService.findByNames(names);
     }
 
     @GetMapping("/natural/lastNames/{lastNames}")
     public Flux<NaturalClients> findAllByLastNamesNatural(@PathVariable final String lastNames){
-        //System.out.println(id);
         return clientsNaturalService.findByLastNames(lastNames);
     }
 

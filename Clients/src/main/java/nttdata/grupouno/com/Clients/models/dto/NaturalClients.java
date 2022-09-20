@@ -12,7 +12,6 @@ import org.springframework.boot.autoconfigure.domain.EntityScan;
 public class NaturalClients extends Clients {
 
     private NaturalPerson person;
-
     public NaturalClients(){
         super();
         person = new NaturalPerson();
