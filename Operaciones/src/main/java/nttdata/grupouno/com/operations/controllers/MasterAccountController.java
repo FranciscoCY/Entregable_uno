@@ -67,11 +67,11 @@ public class MasterAccountController {
                 //Mono<Long> countAcc = accountClientService.findByClientTypeAccount(a.getClientModel().getCodeClient(),a.getClientModel().getTypeAccount()).count();
                 //Mono<Long> countType = Mono.just(b.getCountPerson());
 
-                if (accountClientService.findByClientTypeAccount(a.getClientModel().getCodeClient(),a.getClientModel().getTypeAccount()).count().equals(Mono.just(b.getCountPerson()))) {
+                /*if (accountClientService.findByClientTypeAccount(a.getClientModel().getCodeClient(),a.getClientModel().getTypeAccount()).count().equals(Mono.just(b.getCountPerson()))) {
                     response.put("limitAccount",
                             "Para esta cuenta solo se permite ".concat(b.getCountPerson().toString()));
                     return Mono.just(ResponseEntity.badRequest().body(response));
-                }
+                }*/
                 return accountServices.findByAccount(a.getAccountModel().getNumberAccount()).flatMap(c -> {
                     response.put("duplicit", c);
                     return Mono.just(ResponseEntity.badRequest()
@@ -99,13 +99,6 @@ public class MasterAccountController {
                             return Mono.just(ResponseEntity.badRequest().body(response));
                         }));
     }
-
-    /*
-     * @PostMapping("/relationAccount")
-     * public Mono<ResponseEntity<Map<String, Object>>> relationAccountClient(){
-     * return null;
-     * }
-     */
 
     @GetMapping(value = "/all")
     @ResponseBody
