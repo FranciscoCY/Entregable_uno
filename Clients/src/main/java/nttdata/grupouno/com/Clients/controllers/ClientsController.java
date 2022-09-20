@@ -3,8 +3,10 @@ package nttdata.grupouno.com.Clients.controllers;
 import nttdata.grupouno.com.Clients.models.Clients;
 import nttdata.grupouno.com.Clients.models.dto.ClientsLegal;
 import nttdata.grupouno.com.Clients.models.dto.ClientsNatural;
+import nttdata.grupouno.com.Clients.models.dto.NaturalClients;
 import nttdata.grupouno.com.Clients.services.ClientsService;
 import nttdata.grupouno.com.Clients.services.dto.ClientsLegalService;
+import nttdata.grupouno.com.Clients.services.dto.ClientsNaturalService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -29,6 +31,9 @@ public class ClientsController {
     @Autowired
     private ClientsLegalService clientsLegalService;
 
+    @Autowired
+    private ClientsNaturalService clientsNaturalService;
+
     @GetMapping("/legal")
     public Flux<ClientsLegal> findAllLegal(){
         return clientsService.listAllClientsLegal();
@@ -43,6 +48,30 @@ public class ClientsController {
     @GetMapping("/natural")
     public Flux<ClientsNatural> findAllNatural(){
         return clientsService.listAllClientsNatural();
+    }
+
+    @GetMapping("/natural/{id}")
+    public Mono<NaturalClients> findAllByIdNatural(@PathVariable final String id){
+        //System.out.println(id);
+        return clientsNaturalService.findAllById(id);
+    }
+
+    @GetMapping("/natural/documentNumber/{documentNumber}")
+    public Mono<NaturalClients> findAllByDocumentNumberNatural(@PathVariable final Long documentNumber){
+        //System.out.println(id);
+        return clientsNaturalService.findByDocumentNumber(documentNumber);
+    }
+
+    @GetMapping("/natural/names/{names}")
+    public Flux<NaturalClients> findAllByNamesNatural(@PathVariable final String names){
+        //System.out.println(id);
+        return clientsNaturalService.findByNames(names);
+    }
+
+    @GetMapping("/natural/lastNames/{lastNames}")
+    public Flux<NaturalClients> findAllByLastNamesNatural(@PathVariable final String lastNames){
+        //System.out.println(id);
+        return clientsNaturalService.findByLastNames(lastNames);
     }
 
     @GetMapping("/{id}")

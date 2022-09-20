@@ -5,7 +5,7 @@ import nttdata.grupouno.com.Clients.convert.NaturalClientsConvert;
 import nttdata.grupouno.com.Clients.models.Clients;
 import nttdata.grupouno.com.Clients.models.LegalPerson;
 import nttdata.grupouno.com.Clients.models.NaturalPerson;
-import nttdata.grupouno.com.Clients.models.dto.ClientsDto;
+import nttdata.grupouno.com.Clients.models.dto.ClientsLegal;
 import nttdata.grupouno.com.Clients.models.dto.NaturalClients;
 import nttdata.grupouno.com.Clients.repositories.LegalPersonRepository;
 import nttdata.grupouno.com.Clients.services.LegalPersonService;
@@ -45,7 +45,7 @@ public class LegalPersonImpl implements LegalPersonService {
     }
 
     @Override
-    public Mono<ClientsDto> createLegalPerson(LegalPerson legalPerson) {
+    public Mono<ClientsLegal> createLegalPerson(LegalPerson legalPerson) {
         if(legalPerson == null){
             return null;
         }else{
@@ -55,7 +55,7 @@ public class LegalPersonImpl implements LegalPersonService {
             clients.setIdTypePerson(2L);
             clients.setIdPerson(legalPerson.getId());
             return clientService.createClient(clients).flatMap(clients1 -> {
-                ClientsDto dto=clientsConvert.convertDTO(clients1);
+                ClientsLegal dto=clientsConvert.convertLegalDTO(clients1);
                 LegalPerson legal=new LegalPerson();
                 List<LegalPerson> list=new ArrayList<>();
                 Mono<LegalPerson> legalPersonMono = legalPersonRepository.save(legalPerson);
