@@ -9,4 +9,5 @@ public interface IAccountClientService {
     Flux<AccountClientModel> findByNumBerAccount(String numberAccount);
     Mono<AccountClientModel> registerClient(AccountClientModel model);
     Flux<AccountClientModel> findByClientTypeAccount(String codeCliente, String typeAccount);
+    Flux<AccountClientModel> findAll();
 }
