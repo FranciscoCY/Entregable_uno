@@ -19,4 +19,6 @@ public class TypeModel {
     private String status;
     private Integer countLimitOperation;
     private Double amountCommission;
+    private Integer countPerson;
+    private Integer countBusiness;
 }

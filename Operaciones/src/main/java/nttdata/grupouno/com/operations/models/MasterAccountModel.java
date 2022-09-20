@@ -32,6 +32,4 @@ public class MasterAccountModel {
     private Double amount;
     @NotEmpty
     private String coinType; // PEN - USD
-    @NotNull
-    private ClientModel[] clients;
 }

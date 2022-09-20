@@ -15,8 +15,6 @@ import nttdata.grupouno.com.operations.models.MasterAccountModel;
 @AllArgsConstructor
 @NoArgsConstructor
 public class RegisterAccountDto {
-    @NotNull
     private MasterAccountModel accountModel;
-    @NotNull
-    private AccountClientModel clientModel;    
+    private AccountClientModel clientModel;
 }

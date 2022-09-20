@@ -22,7 +22,7 @@ public class MasterAccountServices implements IMasterAccountServices {
     @Override
     public Mono<MasterAccountModel> createAccount(MasterAccountModel account) {
         account.setId(UUID.randomUUID().toString());
-        account.setType(new TypeModel(account.getType().getCode(), null, null, null, null));
+        account.setType(new TypeModel(account.getType().getCode(), null, null, null, null, null, null));
 
         return accountRepository.save(account)
                 .flatMap(c -> typeAccountRepository.findById(c.getType().getCode()).flatMap(x -> {

@@ -1,0 +1,242 @@
+{
+	"info": {
+		"_postman_id": "1bc95807-e140-4b42-b12f-008a438c17aa",
+		"name": "Spring WebFLux-Proyecto1",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "18152215"
+	},
+	"item": [
+		{
+			"name": "Lista todo cuenta",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8010/account/all",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8010",
+					"path": [
+						"account",
+						"all"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Guarda cuenta",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"id\":\"1\",\r\n    \"numberAccount\":\"123\",\r\n    \"type\": {\r\n        \"code\":\"AHO2\"\r\n    },\r\n    \"startDate\":\"2022.09.16\",\r\n    \"status\":\"A\",\r\n    \"endDate\":null,\r\n    \"amount\":250.50,\r\n    \"coinType\":\"PEN\",\r\n    \"clients\":[\r\n        {\r\n            \"codeClient\":\"123456789\",\r\n            \"type\":\"N\",\r\n            \"status\":\"T\"\r\n        },\r\n        {\r\n            \"codeClient\":\"123456788\",\r\n            \"type\":\"J\",\r\n            \"status\":\"F\"\r\n        }\r\n    ]\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8010/account/",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8010",
+					"path": [
+						"account",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Eliminar Cuenta",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8010/account/f2041d83-4d7d-469f-9de1-e88c451d6b5f",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8010",
+					"path": [
+						"account",
+						"f2041d83-4d7d-469f-9de1-e88c451d6b5f"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Buscar cuenta por fecha de apertura",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8010/account/findStartDate/2022.09.16",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8010",
+					"path": [
+						"account",
+						"findStartDate",
+						"2022.09.16"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Config Server",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://root:s3cr3t@localhost:8888/operation-services/default",
+					"protocol": "http",
+					"auth": {
+						"user": "root",
+						"password": "s3cr3t"
+					},
+					"host": [
+						"localhost"
+					],
+					"port": "8888",
+					"path": [
+						"operation-services",
+						"default"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Lista todos los tipos de cuenta",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8010/typeAccount/all",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8010",
+					"path": [
+						"typeAccount",
+						"all"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Listo un tipo de cuenta",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8010/typeAccount/AHO2",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8010",
+					"path": [
+						"typeAccount",
+						"AHO2"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Guardar tipo cuenta",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"code\":\"CRE2\",\r\n    \"description\":\"Empresarial: se permite más de un crédito por empresa\",\r\n    \"amountCommission\":0.00,\r\n    \"countLimitOperation\": null,\r\n    \"status\" : \"A\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8010/typeAccount/",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8010",
+					"path": [
+						"typeAccount",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Guardar lista de tipos de cuenta",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "[\r\n    {\r\n        \"code\": \"AHO1\",\r\n        \"description\": \"Ahorro: libre de comisión por mantenimiento y con un límite máximo de movimientos mensuales.\",\r\n        \"status\": \"A\",\r\n        \"countLimitOperation\": 10,\r\n        \"amountCommission\": 0.0,\r\n        \"countPerson\": 1,\r\n        \"countBusiness\": 0\r\n    },\r\n    {\r\n        \"code\": \"AHO2\",\r\n        \"description\": \"Cuenta corriente: posee comisión de mantenimiento y sin límite de movimientos mensuales.\",\r\n        \"status\": \"A\",\r\n        \"countLimitOperation\": 99999,\r\n        \"amountCommission\": 1.0,\r\n        \"countPerson\": 1,\r\n        \"countBusiness\": 99999\r\n    },\r\n    {\r\n        \"code\": \"AHO3\",\r\n        \"description\": \"Plazo fijo: libre de comisión por mantenimiento, solo permite un movimiento de retiro o depósito en un día específico del mes.\",\r\n        \"status\": \"A\",\r\n        \"countLimitOperation\": 0,\r\n        \"amountCommission\": 0.0,\r\n        \"countPerson\": 99999,\r\n        \"countBusiness\": 0\r\n    },\r\n    {\r\n        \"code\": \"CRE1\",\r\n        \"description\": \"Personal: solo se permite un solo crédito por persona.\",\r\n        \"status\": \"A\",\r\n        \"countLimitOperation\": 0,\r\n        \"amountCommission\": 0.0,\r\n        \"countPerson\": 0,\r\n        \"countBusiness\": 0\r\n    },\r\n    {\r\n        \"code\": \"CRE2\",\r\n        \"description\": \"Empresarial: se permite más de un crédito por empresa\",\r\n        \"status\": \"A\",\r\n        \"countLimitOperation\": 0,\r\n        \"amountCommission\": 0.0,\r\n        \"countPerson\": 0,\r\n        \"countBusiness\": 0\r\n    }\r\n]",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8010/typeAccount/all",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8010",
+					"path": [
+						"typeAccount",
+						"all"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Eliminar tipo cuenta",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8010/typeAccount/AHO1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8010",
+					"path": [
+						"typeAccount",
+						"AHO1"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
