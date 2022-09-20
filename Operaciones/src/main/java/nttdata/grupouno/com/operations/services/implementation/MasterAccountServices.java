@@ -32,7 +32,7 @@ public class MasterAccountServices implements IMasterAccountServices {
     }
 
     @Override
-    public Mono<MasterAccountModel> findByAccount(String id) {
+    public Mono<MasterAccountModel> findById(String id) {
         return accountRepository.findById(id)
                 .flatMap(c -> typeAccountRepository.findById(c.getType().getCode()).flatMap(x -> {
                     c.setType(x);
@@ -62,5 +62,10 @@ public class MasterAccountServices implements IMasterAccountServices {
     @Override
     public Flux<MasterAccountModel> findStartDate(String date) {
         return accountRepository.findByStartDate(date);
+    }
+
+    @Override
+    public Mono<MasterAccountModel> findByAccount(String numberAccount) {
+        return accountRepository.findByNumberAccount(numberAccount);
     }
 }

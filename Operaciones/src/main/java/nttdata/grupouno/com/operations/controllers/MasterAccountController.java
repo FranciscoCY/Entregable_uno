@@ -28,12 +28,19 @@ public class MasterAccountController {
             @Valid @RequestBody final Mono<MasterAccountModel> account) {
         Map<String, Object> response = new HashMap<>();
 
-        return account.flatMap(accountModel -> accountServices.createAccount(accountModel).map(s -> {
-            response.put("account", s);
-            return ResponseEntity.created(URI.create("/account/"))
-                    .contentType(MediaType.APPLICATION_JSON)
-                    .body(response);
-        })).onErrorResume(ex -> Mono.just(ex).cast(WebExchangeBindException.class)
+        return account.flatMap(p -> {
+            return accountServices.findByAccount(p.getNumberAccount()).flatMap(a -> {
+                response.put("duplicit", a);
+                return Mono.just(ResponseEntity.badRequest()
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .body(response));
+            }).switchIfEmpty(accountServices.createAccount(p).map(s -> {
+                response.put("account", s);
+                return ResponseEntity.created(URI.create("/account/"))
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .body(response);
+            }));
+        }).onErrorResume(ex -> Mono.just(ex).cast(WebExchangeBindException.class)
                 .flatMap(e -> Mono.just(e.getFieldErrors()))
                 .flatMapMany(Flux::fromIterable).map(DefaultMessageSourceResolvable::getDefaultMessage).collectList()
                 .flatMap(list -> {
@@ -50,22 +57,23 @@ public class MasterAccountController {
 
     @GetMapping("/{id}")
     public Mono<ResponseEntity<Mono<MasterAccountModel>>> findAccountById(@PathVariable("id") final String id) {
-        Mono<MasterAccountModel> accountMono = accountServices.findByAccount(id);
+        Mono<MasterAccountModel> accountMono = accountServices.findById(id);
         return Mono.just(new ResponseEntity<>(accountMono, accountMono != null ? HttpStatus.OK : HttpStatus.NOT_FOUND));
     }
 
     @PutMapping("/{id}")
-    public Mono<ResponseEntity<MasterAccountModel>> update(@Valid @RequestBody final MasterAccountModel account, @PathVariable final String id) {
+    public Mono<ResponseEntity<MasterAccountModel>> update(@Valid @RequestBody final MasterAccountModel account,
+            @PathVariable final String id) {
         return accountServices.updateAccount(account, id)
-            .map(c -> ResponseEntity.created(URI.create("/account/".concat(c.getId())))
-            .contentType(MediaType.APPLICATION_JSON)
-            .body(c))
-            .defaultIfEmpty(ResponseEntity.notFound().build());
+                .map(c -> ResponseEntity.created(URI.create("/account/".concat(c.getId())))
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .body(c))
+                .defaultIfEmpty(ResponseEntity.notFound().build());
     }
 
     @DeleteMapping("/{id}")
     public Mono<ResponseEntity<Void>> delete(@PathVariable("id") final String id) {
-        return accountServices.findByAccount(id).flatMap(c -> accountServices.deleteBydId(c.getId())
+        return accountServices.findById(id).flatMap(c -> accountServices.deleteBydId(c.getId())
                 .then(Mono.just(new ResponseEntity<Void>(HttpStatus.NO_CONTENT))))
                 .defaultIfEmpty(new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }

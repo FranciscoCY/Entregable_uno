@@ -6,9 +6,10 @@ import reactor.core.publisher.Mono;
 
 public interface IMasterAccountServices {
     Mono<MasterAccountModel> createAccount(MasterAccountModel account);
-    Mono<MasterAccountModel> findByAccount(String id);
+    Mono<MasterAccountModel> findById(String id);
     Flux<MasterAccountModel> findAllAccount();
     Mono<MasterAccountModel> updateAccount(MasterAccountModel account, String id);
     Mono<Void> deleteBydId(String id);
     Flux<MasterAccountModel> findStartDate(String date);
+    Mono<MasterAccountModel> findByAccount(String numberAccount);
 }
