@@ -237,6 +237,35 @@
 				}
 			},
 			"response": []
+		},
+		{
+			"name": "Registro cuenta banco - activo",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"accountModel\":{\r\n        \"id\":\"1\",\r\n        \"numberAccount\":\"123\",\r\n        \"type\": {\r\n            \"code\":\"AHO1\"\r\n        },\r\n        \"startDate\":\"2022.09.16\",\r\n        \"status\":\"A\",\r\n        \"endDate\":null,\r\n        \"amount\":250.50,\r\n        \"coinType\":\"PEN\"\r\n    },\r\n    \"clientModel\":{\r\n        \"codeClient\":\"123456789\",\r\n        \"numberAccount\":\"123\",\r\n        \"typeClient\":\"N\",\r\n        \"status\":\"T\",\r\n        \"typeAccount\":\"AHO1\"\r\n    }\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8010/account/bank",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8010",
+					"path": [
+						"account",
+						"bank"
+					]
+				}
+			},
+			"response": []
 		}
 	]
 }
