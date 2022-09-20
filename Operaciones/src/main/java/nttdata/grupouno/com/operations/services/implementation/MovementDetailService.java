@@ -1,5 +1,6 @@
 package nttdata.grupouno.com.operations.services.implementation;
 
+import nttdata.grupouno.com.operations.models.MasterAccountModel;
 import nttdata.grupouno.com.operations.models.MovementDetailModel;
 import nttdata.grupouno.com.operations.repositories.implementation.MovementDetailRepository;
 import nttdata.grupouno.com.operations.services.IMovementDetailService;
@@ -14,6 +15,7 @@ public class MovementDetailService implements IMovementDetailService {
 
     @Autowired
     private MovementDetailRepository movementRepository;
+    private MasterAccountServices masterAccountServices;
 
     @Override
     public void createAccount(MovementDetailModel movement) {
@@ -32,8 +34,22 @@ public class MovementDetailService implements IMovementDetailService {
 
     @Override
     public Flux<MovementDetailModel> findByAccount(String account) {
+        System.out.println("service: " +account);
         return movementRepository.findAll(Example.of(new MovementDetailModel(null,account,null,null, null,null,null)));
     }
 
+    public Mono<MasterAccountModel> checkBalance(String id){
+
+        return masterAccountServices.findById(id).flatMap(m -> {
+            if(m.getAmount() >= m.getType().getAmountCommission()){ //procede la consulta
+                m.setAmount(m.getAmount() - m.getType().getAmountCommission());
+                return masterAccountServices.updateAccount(m,m.getId());
+            }
+            else{
+                System.out.println("No hay suficiente saldo para la operación");
+                return null;
+            }
+        });
+    }
 
 }

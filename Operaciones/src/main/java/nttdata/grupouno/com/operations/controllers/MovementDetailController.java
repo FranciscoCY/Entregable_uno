@@ -1,5 +1,6 @@
 package nttdata.grupouno.com.operations.controllers;
 
+import nttdata.grupouno.com.operations.models.MasterAccountModel;
 import nttdata.grupouno.com.operations.models.MovementDetailModel;
 import nttdata.grupouno.com.operations.services.implementation.MovementDetailService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,16 +30,26 @@ public class MovementDetailController {
         return movementService.findAllMovements();
     }
 
-    @GetMapping("/1/{id}")
+    @GetMapping("/id/{id}")
     public ResponseEntity<Mono<MovementDetailModel>> findMovementById(@PathVariable("id") Integer id){
         Mono<MovementDetailModel> accountM = movementService.findById(id);
         return new ResponseEntity<>(accountM, accountM != null ? HttpStatus.OK : HttpStatus.NOT_FOUND);
     }
 
-    @GetMapping("/2/{account}")
+    @GetMapping("/account/{account}")
     public ResponseEntity<Flux<MovementDetailModel>> findMovementByAccount(@PathVariable("account") String account){
+        System.out.println(account);
         Flux<MovementDetailModel> fluxMov = movementService.findByAccount(account);
         return new ResponseEntity<>(fluxMov, HttpStatus.OK);
+    }
+
+    @GetMapping("/operation/check/{id}")
+    public ResponseEntity<Mono<MasterAccountModel>> checkBalance(@PathVariable("account") String id){
+        System.out.println(1);
+        Mono<MasterAccountModel> masterAccount = movementService.checkBalance(id);
+        System.out.println(2);
+        return new ResponseEntity<>(masterAccount, masterAccount!=null ? HttpStatus.OK : HttpStatus.NOT_FOUND);
+
     }
 
 }
