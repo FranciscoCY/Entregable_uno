@@ -16,8 +16,8 @@ spring:
         - id: clients-service
           uri: http://localhost:8002
           predicates:
-            - Path=/clients/**
+            - Path=/api/**
         - id: operation-services
           uri: http://localhost:8010
           predicates:
-            - Path=/operation/**
+            - Path=/api/**
