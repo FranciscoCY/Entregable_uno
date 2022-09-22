@@ -11,5 +11,6 @@ public interface IMovementDetailService {
     Flux<MovementDetailModel> findAllMovements();
 
     Flux<MovementDetailModel> findByAccount(String account);
+    Flux<MovementDetailModel> findByClient(String codeClient);
 
 }

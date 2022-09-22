@@ -18,6 +18,8 @@ public class MasterAccountServices implements IMasterAccountServices {
     private MasterAccountRepository accountRepository;
     @Autowired
     private TypeAccountRepository typeAccountRepository;
+    @Autowired
+    private AccountClientService accountClientService;
 
     @Override
     public Mono<MasterAccountModel> createAccount(MasterAccountModel account) {
@@ -66,6 +68,17 @@ public class MasterAccountServices implements IMasterAccountServices {
 
     @Override
     public Mono<MasterAccountModel> findByAccount(String numberAccount) {
-        return accountRepository.findByNumberAccount(numberAccount);
+        return accountRepository.findByNumberAccount(numberAccount)
+                .flatMap(masterAccountModel -> typeAccountRepository.findById(masterAccountModel.getType().getCode())
+                        .flatMap(typeModel -> {
+                            masterAccountModel.setType(typeModel);
+                            return Mono.just(masterAccountModel);
+                        }));
+    }
+
+    @Override
+    public Flux<MasterAccountModel> findByClient(String codeClient) {
+        return accountClientService.findByCodeClient(codeClient)
+                .flatMap(accountClientModel -> findByAccount(accountClientModel.getNumberAccount()));
     }
 }

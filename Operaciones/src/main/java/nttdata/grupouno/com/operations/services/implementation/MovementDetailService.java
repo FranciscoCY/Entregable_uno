@@ -16,6 +16,8 @@ public class MovementDetailService implements IMovementDetailService {
     @Autowired
     private MovementDetailRepository movementRepository;
     private MasterAccountServices masterAccountServices;
+    @Autowired
+    private AccountClientService accountClientService;
 
     @Override
     public void createAccount(MovementDetailModel movement) {
@@ -36,6 +38,12 @@ public class MovementDetailService implements IMovementDetailService {
     public Flux<MovementDetailModel> findByAccount(String account) {
         System.out.println("service: " +account);
         return movementRepository.findAll(Example.of(new MovementDetailModel(null,account,null,null, null,null,null)));
+    }
+
+    @Override
+    public Flux<MovementDetailModel> findByClient(String codeClient) {
+        return accountClientService.findByCodeClient(codeClient)
+                .flatMap(accountClientModel -> findByAccount(accountClientModel.getNumberAccount()));
     }
 
     public Mono<MasterAccountModel> checkBalance(String id){

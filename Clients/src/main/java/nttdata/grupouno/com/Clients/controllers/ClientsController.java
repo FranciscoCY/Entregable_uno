@@ -1,6 +1,8 @@
 package nttdata.grupouno.com.Clients.controllers;
 
 import nttdata.grupouno.com.Clients.models.Clients;
+import nttdata.grupouno.com.Clients.models.MasterAccount;
+import nttdata.grupouno.com.Clients.models.MovementDetail;
 import nttdata.grupouno.com.Clients.models.dto.ClientsLegal;
 import nttdata.grupouno.com.Clients.models.dto.ClientsNatural;
 import nttdata.grupouno.com.Clients.models.dto.NaturalClients;
@@ -140,5 +142,24 @@ public class ClientsController {
             return clientsService.deleteClient(c.getId())
                     .then(Mono.just(new ResponseEntity<Void>(HttpStatus.NO_CONTENT)));
         }).defaultIfEmpty(new ResponseEntity<Void>(HttpStatus.NOT_FOUND));
+    }
+
+    @GetMapping("/natural/movement/{documentNumber}")
+    public Flux<MovementDetail> findMovementByIdNatural(@PathVariable final Long documentNumber){
+        return clientsNaturalService.findMovementByDocumentNumber(documentNumber);
+    }
+
+    @GetMapping("/legal/movement/{ruc}")
+    public Flux<MovementDetail> findMovementByIdLegal(@PathVariable final Long ruc){
+        return clientsLegalService.findMovementByRuc(ruc);
+    }
+    @GetMapping("/natural/account/{documentNumber}")
+    public Flux<MasterAccount> findAccountByIdNatural(@PathVariable final Long documentNumber){
+        return clientsNaturalService.findAccountByDocumentNumber(documentNumber);
+    }
+
+    @GetMapping("/legal/account/{ruc}")
+    public Flux<MasterAccount> findAccountByIdLegal(@PathVariable final Long ruc){
+        return clientsLegalService.findAccountByRuc(ruc);
     }
 }

@@ -36,6 +36,12 @@ public class MovementDetailController {
         return new ResponseEntity<>(accountM, accountM != null ? HttpStatus.OK : HttpStatus.NOT_FOUND);
     }
 
+    @GetMapping("/client/{codeClient}")
+    public ResponseEntity<Flux<MovementDetailModel>> findMovementByClient(@PathVariable("codeClient") String codeClient){
+        Flux<MovementDetailModel> accountM = movementService.findByClient(codeClient);
+        return new ResponseEntity<>(accountM, accountM != null ? HttpStatus.OK : HttpStatus.NOT_FOUND);
+    }
+
     @GetMapping("/account/{account}")
     public ResponseEntity<Flux<MovementDetailModel>> findMovementByAccount(@PathVariable("account") String account){
         System.out.println(account);

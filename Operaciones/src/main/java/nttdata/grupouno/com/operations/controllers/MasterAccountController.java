@@ -143,4 +143,10 @@ public class MasterAccountController {
     public Flux<MasterAccountModel> findStartDate(@PathVariable("date") final String date) {
         return accountServices.findStartDate(date);
     }
+
+    @GetMapping("/client/{codeClient}")
+    public Mono<ResponseEntity<Flux<MasterAccountModel>>> findByClient(@PathVariable("codeClient") final String codeClient) {
+        Flux<MasterAccountModel> accountFlux = accountServices.findByClient(codeClient);
+        return Mono.just(new ResponseEntity<>(accountFlux, accountFlux != null ? HttpStatus.OK : HttpStatus.NOT_FOUND));
+    }
 }
