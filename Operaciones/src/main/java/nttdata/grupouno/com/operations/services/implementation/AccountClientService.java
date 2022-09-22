@@ -32,11 +32,16 @@ public class AccountClientService implements IAccountClientService {
 
     @Override
     public Flux<AccountClientModel> findByClientTypeAccount(String codeCliente, String typeAccount) {
-        return accountClientRepositorio.findAll(Example.of(new AccountClientModel(codeCliente, null, null, null, typeAccount)));
+        return accountClientRepositorio.findByNumberAccountAndTypeAccount(codeCliente, typeAccount);
     }
 
     @Override
     public Flux<AccountClientModel> findAll() {
         return accountClientRepositorio.findAll();
+    }
+
+    @Override
+    public Mono<Long> countByCodeClientAndTypeAccount(String codeClient, String typeAccount) {
+        return accountClientRepositorio.countByCodeClientAndTypeAccount(codeClient, typeAccount);
     }
 }

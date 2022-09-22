@@ -4,8 +4,11 @@ import org.springframework.data.mongodb.repository.ReactiveMongoRepository;
 
 import nttdata.grupouno.com.operations.models.AccountClientModel;
 import reactor.core.publisher.Flux;
+import reactor.core.publisher.Mono;
 
 public interface AccountClientRepositorio extends ReactiveMongoRepository<AccountClientModel, String>{
     Flux<AccountClientModel> findByCodeClient(String codeClient);
     Flux<AccountClientModel> findByNumberAccount(String numberAccount);
+    Flux<AccountClientModel> findByNumberAccountAndTypeAccount(String numberAccount, String typeAccount);
+    Mono<Long> countByCodeClientAndTypeAccount(String codeClient, String typeAccount);
 }

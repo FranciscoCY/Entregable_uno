@@ -10,4 +10,5 @@ public interface IAccountClientService {
     Mono<AccountClientModel> registerClient(AccountClientModel model);
     Flux<AccountClientModel> findByClientTypeAccount(String codeCliente, String typeAccount);
     Flux<AccountClientModel> findAll();
+    Mono<Long> countByCodeClientAndTypeAccount(String codeCliente, String typeAccount);
 }

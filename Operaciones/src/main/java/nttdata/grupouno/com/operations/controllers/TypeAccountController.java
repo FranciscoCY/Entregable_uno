@@ -22,7 +22,7 @@ import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
 @RestController
-@RequestMapping("/typeAccount")
+@RequestMapping("api/typeAccount")
 public class TypeAccountController {
     @Autowired
     private ITypeAccountService typeServices;
@@ -76,7 +76,7 @@ public class TypeAccountController {
     public Mono<ResponseEntity<TypeModel>> update(@RequestBody final TypeModel typeModel,
             @PathVariable final String id) {
         return typeServices.updateType(typeModel, id)
-                .map(c -> ResponseEntity.created(URI.create("/account/".concat(c.getCode())))
+                .map(c -> ResponseEntity.created(URI.create("/api/account/".concat(c.getCode())))
                         .contentType(MediaType.APPLICATION_JSON)
                         .body(c))
                 .defaultIfEmpty(ResponseEntity.notFound().build());

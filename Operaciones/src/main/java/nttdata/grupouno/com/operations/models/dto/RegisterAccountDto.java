@@ -1,7 +1,5 @@
 package nttdata.grupouno.com.operations.models.dto;
 
-import javax.validation.constraints.NotNull;
-
 import org.springframework.boot.autoconfigure.domain.EntityScan;
 
 import lombok.AllArgsConstructor;
