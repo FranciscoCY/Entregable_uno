@@ -22,7 +22,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 @RestController
-@RequestMapping("api/account")
+@RequestMapping("/operation/account")
 public class MasterAccountController {
     @Autowired
     private IMasterAccountServices accountServices;
