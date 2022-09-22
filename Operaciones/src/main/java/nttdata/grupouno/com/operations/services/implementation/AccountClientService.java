@@ -1,7 +1,6 @@
 package nttdata.grupouno.com.operations.services.implementation;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Example;
 import org.springframework.stereotype.Service;
 
 import nttdata.grupouno.com.operations.models.AccountClientModel;
