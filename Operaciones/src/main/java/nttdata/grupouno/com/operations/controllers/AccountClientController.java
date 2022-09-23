@@ -18,7 +18,7 @@ import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
 @RestController
-@RequestMapping("api/accountClient")
+@RequestMapping("/operation/accountClient")
 public class AccountClientController {
     @Autowired
     private IAccountClientService accountClientService;

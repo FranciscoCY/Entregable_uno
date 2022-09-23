@@ -22,7 +22,7 @@ import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
 @RestController
-@RequestMapping("api/typeAccount")
+@RequestMapping("/operation/typeAccount")
 public class TypeAccountController {
     @Autowired
     private ITypeAccountService typeServices;
