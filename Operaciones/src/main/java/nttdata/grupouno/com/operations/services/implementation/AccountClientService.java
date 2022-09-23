@@ -48,4 +48,9 @@ public class AccountClientService implements IAccountClientService {
     public Mono<AccountClientModel> findById(String id){
         return accountClientRepositorio.findById(id);
     }
+
+    @Override
+    public Mono<Long> countByCodeClientAndTypeAccountAndTypeClient(String codeCliente, String typeAccount, String typeClient) {
+        return accountClientRepositorio.countByCodeClientAndTypeAccountAndTypeClient(codeCliente, typeAccount, typeClient);
+    }
 }

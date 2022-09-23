@@ -29,10 +29,14 @@ public class AccountClientServiceTest {
     private Mono<AccountClientModel> accountClientModel;
     @Autowired
     private Flux<AccountClientModel> accountClienteModels;
+    @Autowired
+    private Mono<Long> countClienType;
 
     @BeforeEach
-    void init(){
+    void init() {
         accountClientModel = Mono.just(new AccountClientModel("1", "12", "N", "T", "AHO1"));
+        accountClienteModels = accountClientModel.flux();
+        countClienType = Mono.just(Long.valueOf("1"));
     }
 
     @Test
@@ -48,4 +52,27 @@ public class AccountClientServiceTest {
             assertEquals(x.getNumberAccount(), "12");
         });
 	}
+
+    @Test
+    void countByCodeClientAndTypeAccount() {
+        Mockito.when(accountClientRepositorio.countByCodeClientAndTypeAccount("1", "AHO")).thenReturn(countClienType);
+        Mono<Long> countResponse = accountClientService.countByCodeClientAndTypeAccount("1", "AHO");
+        
+        assertEquals(countResponse, countClienType);
+        countResponse.subscribe(x -> assertEquals(x, 1));
+    }
+
+    @Test
+    void findAll(){
+        Mockito.when(accountClientRepositorio.findAll()).thenReturn(accountClienteModels);
+        Flux<AccountClientModel> response = accountClientService.findAll();
+        assertEquals(response, accountClienteModels);
+    }
+
+    @Test
+    void findByClientTypeAccount(){
+        Mockito.when(accountClientRepositorio.findByNumberAccountAndTypeAccount("1", "AHO")).thenReturn(accountClienteModels);
+        Flux<AccountClientModel> response = accountClientService.findByClientTypeAccount("1", "AHO");
+        assertEquals(response, accountClienteModels);
+    }
 }
