@@ -1,5 +1,6 @@
 package nttdata.grupouno.com.Clients.controllers;
 
+import io.github.resilience4j.circuitbreaker.annotation.CircuitBreaker;
 import nttdata.grupouno.com.Clients.models.Clients;
 import nttdata.grupouno.com.Clients.models.MasterAccount;
 import nttdata.grupouno.com.Clients.models.MovementDetail;
@@ -21,6 +22,7 @@ import reactor.core.publisher.Mono;
 import javax.validation.Valid;
 import java.net.URI;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @RestController
@@ -144,22 +146,53 @@ public class ClientsController {
         }).defaultIfEmpty(new ResponseEntity<Void>(HttpStatus.NOT_FOUND));
     }
 
+
     @GetMapping("/natural/movement/{documentNumber}")
+    @CircuitBreaker(name="operation", fallbackMethod = "fallBackfindMovementByIdNatural")
     public Flux<MovementDetail> findMovementByIdNatural(@PathVariable final Long documentNumber){
         return clientsNaturalService.findMovementByDocumentNumber(documentNumber);
     }
 
+    @CircuitBreaker(name="operation", fallbackMethod = "fallBackfindMovementByIdLegal")
     @GetMapping("/legal/movement/{ruc}")
     public Flux<MovementDetail> findMovementByIdLegal(@PathVariable final Long ruc){
         return clientsLegalService.findMovementByRuc(ruc);
     }
+    @CircuitBreaker(name="operation", fallbackMethod = "fallBackfindAccountByIdNatural")
     @GetMapping("/natural/account/{documentNumber}")
     public Flux<MasterAccount> findAccountByIdNatural(@PathVariable final Long documentNumber){
         return clientsNaturalService.findAccountByDocumentNumber(documentNumber);
     }
 
+    @CircuitBreaker(name="operation", fallbackMethod = "fallBackfindAccountByIdLegal")
     @GetMapping("/legal/account/{ruc}")
     public Flux<MasterAccount> findAccountByIdLegal(@PathVariable final Long ruc){
         return clientsLegalService.findAccountByRuc(ruc);
+    }
+
+    private Flux<MovementDetail> fallBackfindMovementByIdNatural( RuntimeException ex){
+        MovementDetail details= new MovementDetail();
+        details.setCurrency("El microservicio de movimiento no esta disponible. fallBackfindMovementByIdNatural");
+        return Flux.just(details);
+        //return  new ResponseEntity("El microservicio de movimiento no esta disponible. fallBackfindMovementByIdNatural",HttpStatus.OK);
+
+    }
+
+    private ResponseEntity<List<MovementDetail>> fallBackfindMovementByIdLegal(@PathVariable final Long ruc, RuntimeException ex){
+        MovementDetail movementDetail=new MovementDetail();
+        return  new ResponseEntity("El microservicio de movimiento no esta disponible. fallBackfindMovementByIdLegal",HttpStatus.OK);
+
+    }
+
+    private ResponseEntity<List<MovementDetail>> fallBackfindAccountByIdNatural(@PathVariable final Long ruc, RuntimeException ex){
+        MovementDetail movementDetail=new MovementDetail();
+        return  new ResponseEntity("El microservicio de movimiento no esta disponible. fallBackfindAccountByIdNatural",HttpStatus.OK);
+
+    }
+
+    private ResponseEntity<List<MovementDetail>> fallBackfindAccountByIdLegal(@PathVariable final Long ruc, RuntimeException ex){
+        MovementDetail movementDetail=new MovementDetail();
+        return  new ResponseEntity("El microservicio de movimiento no esta disponible. fallBackfindAccountByIdLegal",HttpStatus.OK);
+
     }
 }

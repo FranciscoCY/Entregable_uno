@@ -48,6 +48,7 @@ public class LegalPersonController {
         });
     }
 
+
     @GetMapping("/businessName/{name}")
     public Flux<LegalPerson> findAllByBusinessName(@PathVariable final String name) {
         return legalPersonService.findByBusinessName(name).flatMap(l -> {
