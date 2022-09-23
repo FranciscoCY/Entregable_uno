@@ -52,6 +52,10 @@ public class MasterAccountController {
         return request.flatMap(a -> 
             typeAccountService.findById(a.getAccountModel().getType().getCode()).flatMap(b -> {
                 response.put("typeAccount", b);
+                if(b.getAmountStart() > a.getAccountModel().getAmount()){
+                    response.put("limit", "El monto mínimo de apertura para este producto es de ".concat(b.getAmountStart().toString()));
+                        return Mono.just(ResponseEntity.badRequest().body(response));
+                }
                 return accountClientService.countByCodeClientAndTypeAccountAndTypeClient(a.getClientModel().getCodeClient(), b.getCode(), a.getClientModel().getTypeClient()).flatMap(c -> {
                     if(c.intValue() >= b.getCountPerson() && a.getClientModel().getTypeClient().equals("N")){
                         response.put("limit", "El máximo de cuentas del tipo <<".concat(b.getDescription()).concat(">> es ").concat(b.getCountPerson().toString()));
