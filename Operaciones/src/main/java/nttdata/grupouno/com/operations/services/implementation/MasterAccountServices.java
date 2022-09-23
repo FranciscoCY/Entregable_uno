@@ -2,6 +2,7 @@ package nttdata.grupouno.com.operations.services.implementation;
 
 import nttdata.grupouno.com.operations.models.MasterAccountModel;
 import nttdata.grupouno.com.operations.models.TypeModel;
+import nttdata.grupouno.com.operations.repositories.implementation.AccountClientRepositorio;
 import nttdata.grupouno.com.operations.repositories.implementation.MasterAccountRepository;
 import nttdata.grupouno.com.operations.repositories.implementation.TypeAccountRepository;
 import nttdata.grupouno.com.operations.services.IMasterAccountServices;
@@ -19,7 +20,7 @@ public class MasterAccountServices implements IMasterAccountServices {
     @Autowired
     private TypeAccountRepository typeAccountRepository;
     @Autowired
-    private AccountClientService accountClientService;
+    private AccountClientRepositorio accountClientRepositorio;
 
     @Override
     public Mono<MasterAccountModel> createAccount(MasterAccountModel account) {
@@ -78,7 +79,7 @@ public class MasterAccountServices implements IMasterAccountServices {
 
     @Override
     public Flux<MasterAccountModel> findByClient(String codeClient) {
-        return accountClientService.findByCodeClient(codeClient)
+        return accountClientRepositorio.findByCodeClient(codeClient)
                 .flatMap(accountClientModel -> findByAccount(accountClientModel.getNumberAccount()));
     }
 }
