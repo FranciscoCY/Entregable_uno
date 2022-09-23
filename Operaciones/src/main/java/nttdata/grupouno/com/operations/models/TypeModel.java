@@ -21,4 +21,5 @@ public class TypeModel {
     private Double amountCommission;
     private Integer countPerson;
     private Integer countBusiness;
+    private Double amountStart;
 }
