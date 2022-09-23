@@ -13,6 +13,8 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.bind.support.WebExchangeBindException;
+
+import io.github.resilience4j.circuitbreaker.annotation.CircuitBreaker;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
@@ -31,11 +33,18 @@ public class MasterAccountController {
     @Autowired
     private IAccountClientService accountClientService;
 
+    public Mono<ResponseEntity<Map<String, Object>>> fallbackBank(RuntimeException runtimeException){
+        Map<String, Object> response = new HashMap<>();
+        response.put("unavaible", "El servicio para crear cuentas no se encuentra disponible.");
+        return Mono.just(ResponseEntity.status(HttpStatus.SERVICE_UNAVAILABLE).body(response));
+    }
+
     /**
      * @param request
      * @return
      */
     @PostMapping("/bank")
+    @CircuitBreaker(name = "bank", fallbackMethod = "fallbackBank")
     public Mono<ResponseEntity<Map<String, Object>>> createAccountBank(
             @Valid @RequestBody Mono<RegisterAccountDto> request) {
         Map<String, Object> response = new HashMap<>();
