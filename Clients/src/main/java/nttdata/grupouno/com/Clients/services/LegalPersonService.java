@@ -9,7 +9,7 @@ public interface LegalPersonService {
 
     Flux<LegalPerson> listAllLegalPerson();
     Mono<LegalPerson> findAllById(String id);
-    Mono<ClientsLegal> createLegalPerson(LegalPerson legalPerson);
+    Mono<LegalPerson> createLegalPerson(LegalPerson legalPerson);
     Mono<LegalPerson> updateLegalPerson(LegalPerson legalPerson,String id);
     Mono<Void> deleteLegalPerson(String id);
     Mono<LegalPerson> findByRuc(Long ruc);
