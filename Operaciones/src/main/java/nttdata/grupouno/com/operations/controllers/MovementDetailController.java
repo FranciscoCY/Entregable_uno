@@ -11,7 +11,7 @@ import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
 @RestController
-@RequestMapping("/movement")
+@RequestMapping("/operation/movement")
 public class MovementDetailController {
 
     @Autowired
@@ -33,6 +33,12 @@ public class MovementDetailController {
     @GetMapping("/id/{id}")
     public ResponseEntity<Mono<MovementDetailModel>> findMovementById(@PathVariable("id") Integer id){
         Mono<MovementDetailModel> accountM = movementService.findById(id);
+        return new ResponseEntity<>(accountM, accountM != null ? HttpStatus.OK : HttpStatus.NOT_FOUND);
+    }
+
+    @GetMapping("/client/{codeClient}")
+    public ResponseEntity<Flux<MovementDetailModel>> findMovementByClient(@PathVariable("codeClient") String codeClient){
+        Flux<MovementDetailModel> accountM = movementService.findByClient(codeClient);
         return new ResponseEntity<>(accountM, accountM != null ? HttpStatus.OK : HttpStatus.NOT_FOUND);
     }
 

@@ -1,7 +1,6 @@
 package nttdata.grupouno.com.Clients.services;
 
 import nttdata.grupouno.com.Clients.models.Clients;
-import nttdata.grupouno.com.Clients.models.LegalPerson;
 import nttdata.grupouno.com.Clients.models.dto.ClientsLegal;
 import nttdata.grupouno.com.Clients.models.dto.ClientsNatural;
 import reactor.core.publisher.Flux;

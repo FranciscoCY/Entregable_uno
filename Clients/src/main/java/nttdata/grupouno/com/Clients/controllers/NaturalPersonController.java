@@ -77,8 +77,7 @@ public class NaturalPersonController {
         return personService.findAllById(id).flatMap(person -> {
             return personService.deleteNaturalPerson(person.getId())
                     .then(Mono.just(new ResponseEntity<Void>(HttpStatus.NO_CONTENT)));
-        }).defaultIfEmpty(new ResponseEntity<Void>(HttpStatus.NOT_FOUND));
-        //personService.deleteNaturalPerson(id).subscribe();
+        }).defaultIfEmpty(new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
 
     @GetMapping("/findByDocumentNumber/{documentNumber}")

@@ -1,10 +1,10 @@
-package nttdata.grupouno.com.operations;
+package nttdata.grupouno.com.registryservice;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class OperacionesApplicationTests {
+class RegistryServiceApplicationTests {
 
 	@Test
 	void contextLoads() {

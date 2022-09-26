@@ -12,4 +12,5 @@ public interface IMasterAccountServices {
     Mono<Void> deleteBydId(String id);
     Flux<MasterAccountModel> findStartDate(String date);
     Mono<MasterAccountModel> findByAccount(String numberAccount);
+    Flux<MasterAccountModel> findByClient(String codeClient);
 }

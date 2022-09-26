@@ -12,44 +12,16 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "http://localhost:8010/account/all",
+					"raw": "http://localhost:8001/operation/account/all",
 					"protocol": "http",
 					"host": [
 						"localhost"
 					],
-					"port": "8010",
+					"port": "8001",
 					"path": [
+						"operation",
 						"account",
 						"all"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "Guarda cuenta",
-			"request": {
-				"method": "POST",
-				"header": [],
-				"body": {
-					"mode": "raw",
-					"raw": "{\r\n    \"id\":\"1\",\r\n    \"numberAccount\":\"123\",\r\n    \"type\": {\r\n        \"code\":\"AHO2\"\r\n    },\r\n    \"startDate\":\"2022.09.16\",\r\n    \"status\":\"A\",\r\n    \"endDate\":null,\r\n    \"amount\":250.50,\r\n    \"coinType\":\"PEN\",\r\n    \"clients\":[\r\n        {\r\n            \"codeClient\":\"123456789\",\r\n            \"type\":\"N\",\r\n            \"status\":\"T\"\r\n        },\r\n        {\r\n            \"codeClient\":\"123456788\",\r\n            \"type\":\"J\",\r\n            \"status\":\"F\"\r\n        }\r\n    ]\r\n}",
-					"options": {
-						"raw": {
-							"language": "json"
-						}
-					}
-				},
-				"url": {
-					"raw": "http://localhost:8010/account/",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "8010",
-					"path": [
-						"account",
-						""
 					]
 				}
 			},
@@ -61,13 +33,14 @@
 				"method": "DELETE",
 				"header": [],
 				"url": {
-					"raw": "http://localhost:8010/account/f2041d83-4d7d-469f-9de1-e88c451d6b5f",
+					"raw": "http://localhost:8001/operation/account/f2041d83-4d7d-469f-9de1-e88c451d6b5f",
 					"protocol": "http",
 					"host": [
 						"localhost"
 					],
-					"port": "8010",
+					"port": "8001",
 					"path": [
+						"operation",
 						"account",
 						"f2041d83-4d7d-469f-9de1-e88c451d6b5f"
 					]
@@ -81,13 +54,14 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "http://localhost:8010/account/findStartDate/2022.09.16",
+					"raw": "http://localhost:8001/operation/account/findStartDate/2022.09.16",
 					"protocol": "http",
 					"host": [
 						"localhost"
 					],
-					"port": "8010",
+					"port": "8001",
 					"path": [
+						"operation",
 						"account",
 						"findStartDate",
 						"2022.09.16"
@@ -126,13 +100,14 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "http://localhost:8010/typeAccount/all",
+					"raw": "http://localhost:8001/operation/typeAccount/all",
 					"protocol": "http",
 					"host": [
 						"localhost"
 					],
-					"port": "8010",
+					"port": "8001",
 					"path": [
+						"operation",
 						"typeAccount",
 						"all"
 					]
@@ -146,13 +121,14 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "http://localhost:8010/typeAccount/AHO2",
+					"raw": "http://localhost:8001/operation/typeAccount/AHO2",
 					"protocol": "http",
 					"host": [
 						"localhost"
 					],
-					"port": "8010",
+					"port": "8001",
 					"path": [
+						"operation",
 						"typeAccount",
 						"AHO2"
 					]
@@ -167,7 +143,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n    \"code\":\"CRE2\",\r\n    \"description\":\"Empresarial: se permite más de un crédito por empresa\",\r\n    \"amountCommission\":0.00,\r\n    \"countLimitOperation\": null,\r\n    \"status\" : \"A\"\r\n}",
+					"raw": "{\r\n        \"code\": \"AHO1\",\r\n        \"description\": \"Ahorro: libre de comisión por mantenimiento y con un límite máximo de movimientos mensuales.\",\r\n        \"status\": \"A\",\r\n        \"countLimitOperation\": 10,\r\n        \"amountCommission\": 0.0,\r\n        \"countPerson\": 1,\r\n        \"countBusiness\": 0,\r\n        \"amountStart\":0.0\r\n    }",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -175,13 +151,14 @@
 					}
 				},
 				"url": {
-					"raw": "http://localhost:8010/typeAccount/",
+					"raw": "http://localhost:8001/operation/typeAccount/",
 					"protocol": "http",
 					"host": [
 						"localhost"
 					],
-					"port": "8010",
+					"port": "8001",
 					"path": [
+						"operation",
 						"typeAccount",
 						""
 					]
@@ -196,7 +173,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "[\r\n    {\r\n        \"code\": \"AHO1\",\r\n        \"description\": \"Ahorro: libre de comisión por mantenimiento y con un límite máximo de movimientos mensuales.\",\r\n        \"status\": \"A\",\r\n        \"countLimitOperation\": 10,\r\n        \"amountCommission\": 0.0,\r\n        \"countPerson\": 1,\r\n        \"countBusiness\": 0\r\n    },\r\n    {\r\n        \"code\": \"AHO2\",\r\n        \"description\": \"Cuenta corriente: posee comisión de mantenimiento y sin límite de movimientos mensuales.\",\r\n        \"status\": \"A\",\r\n        \"countLimitOperation\": 99999,\r\n        \"amountCommission\": 1.0,\r\n        \"countPerson\": 1,\r\n        \"countBusiness\": 99999\r\n    },\r\n    {\r\n        \"code\": \"AHO3\",\r\n        \"description\": \"Plazo fijo: libre de comisión por mantenimiento, solo permite un movimiento de retiro o depósito en un día específico del mes.\",\r\n        \"status\": \"A\",\r\n        \"countLimitOperation\": 0,\r\n        \"amountCommission\": 0.0,\r\n        \"countPerson\": 99999,\r\n        \"countBusiness\": 0\r\n    },\r\n    {\r\n        \"code\": \"CRE1\",\r\n        \"description\": \"Personal: solo se permite un solo crédito por persona.\",\r\n        \"status\": \"A\",\r\n        \"countLimitOperation\": 0,\r\n        \"amountCommission\": 0.0,\r\n        \"countPerson\": 0,\r\n        \"countBusiness\": 0\r\n    },\r\n    {\r\n        \"code\": \"CRE2\",\r\n        \"description\": \"Empresarial: se permite más de un crédito por empresa\",\r\n        \"status\": \"A\",\r\n        \"countLimitOperation\": 0,\r\n        \"amountCommission\": 0.0,\r\n        \"countPerson\": 0,\r\n        \"countBusiness\": 0\r\n    }\r\n]",
+					"raw": "[\r\n    {\r\n        \"code\": \"AHO1\",\r\n        \"description\": \"Ahorro: libre de comisión por mantenimiento y con un límite máximo de movimientos mensuales.\",\r\n        \"status\": \"A\",\r\n        \"countLimitOperation\": 10,\r\n        \"amountCommission\": 0.0,\r\n        \"countPerson\": 1,\r\n        \"countBusiness\": 0,\r\n        \"amountStart\":0.0\r\n    },\r\n    {\r\n        \"code\": \"AHO2\",\r\n        \"description\": \"Cuenta corriente: posee comisión de mantenimiento y sin límite de movimientos mensuales.\",\r\n        \"status\": \"A\",\r\n        \"countLimitOperation\": 99999,\r\n        \"amountCommission\": 1.0,\r\n        \"countPerson\": 1,\r\n        \"countBusiness\": 99999,\r\n        \"amountStart\":10.0\r\n    },\r\n    {\r\n        \"code\": \"AHO3\",\r\n        \"description\": \"Plazo fijo: libre de comisión por mantenimiento, solo permite un movimiento de retiro o depósito en un día específico del mes.\",\r\n        \"status\": \"A\",\r\n        \"countLimitOperation\": 0,\r\n        \"amountCommission\": 0.0,\r\n        \"countPerson\": 99999,\r\n        \"countBusiness\": 0,\r\n        \"amountStart\":0.0\r\n    },\r\n    {\r\n        \"code\": \"CRE1\",\r\n        \"description\": \"Personal: solo se permite un solo crédito por persona.\",\r\n        \"status\": \"A\",\r\n        \"countLimitOperation\": 0,\r\n        \"amountCommission\": 0.0,\r\n        \"countPerson\": 0,\r\n        \"countBusiness\": 0,\r\n        \"amountStart\":0.0\r\n    },\r\n    {\r\n        \"code\": \"CRE2\",\r\n        \"description\": \"Empresarial: se permite más de un crédito por empresa\",\r\n        \"status\": \"A\",\r\n        \"countLimitOperation\": 0,\r\n        \"amountCommission\": 0.0,\r\n        \"countPerson\": 0,\r\n        \"countBusiness\": 0,\r\n        \"amountStart\":0.0\r\n    }\r\n]",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -204,13 +181,14 @@
 					}
 				},
 				"url": {
-					"raw": "http://localhost:8010/typeAccount/all",
+					"raw": "http://localhost:8001/operation/typeAccount/all",
 					"protocol": "http",
 					"host": [
 						"localhost"
 					],
-					"port": "8010",
+					"port": "8001",
 					"path": [
+						"operation",
 						"typeAccount",
 						"all"
 					]
@@ -224,13 +202,14 @@
 				"method": "DELETE",
 				"header": [],
 				"url": {
-					"raw": "http://localhost:8010/typeAccount/AHO1",
+					"raw": "http://localhost:8001/operation/typeAccount/AHO1",
 					"protocol": "http",
 					"host": [
 						"localhost"
 					],
-					"port": "8010",
+					"port": "8001",
 					"path": [
+						"operation",
 						"typeAccount",
 						"AHO1"
 					]
@@ -245,7 +224,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n    \"accountModel\":{\r\n        \"id\":\"1\",\r\n        \"numberAccount\":\"123\",\r\n        \"type\": {\r\n            \"code\":\"AHO1\"\r\n        },\r\n        \"startDate\":\"2022.09.16\",\r\n        \"status\":\"A\",\r\n        \"endDate\":null,\r\n        \"amount\":250.50,\r\n        \"coinType\":\"PEN\"\r\n    },\r\n    \"clientModel\":{\r\n        \"codeClient\":\"123456789\",\r\n        \"numberAccount\":\"123\",\r\n        \"typeClient\":\"N\",\r\n        \"status\":\"T\",\r\n        \"typeAccount\":\"AHO1\"\r\n    }\r\n}",
+					"raw": "{\r\n    \"accountModel\":{\r\n        \"id\":\"1\",\r\n        \"numberAccount\":\"1234\",\r\n        \"type\": {\r\n            \"code\":\"AHO1\"\r\n        },\r\n        \"startDate\":\"2022.09.16\",\r\n        \"status\":\"A\",\r\n        \"endDate\":null,\r\n        \"amount\":250.50,\r\n        \"coinType\":\"PEN\"\r\n    },\r\n    \"clientModel\":{\r\n        \"codeClient\":\"123456789\",\r\n        \"typeClient\":\"N\",\r\n        \"status\":\"T\"\r\n    }\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -253,15 +232,55 @@
 					}
 				},
 				"url": {
-					"raw": "http://localhost:8010/account/bank",
+					"raw": "http://localhost:8001/operation/account/bank",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8001",
+					"path": [
+						"operation",
+						"account",
+						"bank"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Actuator",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8010/actuator",
 					"protocol": "http",
 					"host": [
 						"localhost"
 					],
 					"port": "8010",
 					"path": [
-						"account",
-						"bank"
+						"actuator"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "actuator-health",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8010/actuator/health",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8010",
+					"path": [
+						"actuator",
+						"health"
 					]
 				}
 			},

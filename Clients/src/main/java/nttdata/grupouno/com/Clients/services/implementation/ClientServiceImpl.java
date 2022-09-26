@@ -78,9 +78,7 @@ public class ClientServiceImpl implements ClientsService {
 
     @Override
     public Mono<Clients> findAllById(String id) {
-        return clientesRepository.findById(id).flatMap(clients -> {
-            return Mono.just(clients);
-        });
+        return clientesRepository.findById(id);
     }
 
     @Override
@@ -108,15 +106,11 @@ public class ClientServiceImpl implements ClientsService {
     @Override
     public Flux<Clients> findByIdTypePerson(Long idTypePerson) {
 
-        return clientesRepository.findByIdTypePerson(idTypePerson).flatMap(clients -> {
-            return Mono.just(clients);
-        });
+        return clientesRepository.findByIdTypePerson(idTypePerson);
     }
 
     @Override
     public Mono<Clients> findByIdPerson(String id) {
-        return clientesRepository.findByIdPerson(id).flatMap(clients ->{
-            return Mono.just(clients);
-        });
+        return clientesRepository.findByIdPerson(id);
     }
 }

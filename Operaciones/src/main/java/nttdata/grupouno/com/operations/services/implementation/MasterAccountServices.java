@@ -2,6 +2,7 @@ package nttdata.grupouno.com.operations.services.implementation;
 
 import nttdata.grupouno.com.operations.models.MasterAccountModel;
 import nttdata.grupouno.com.operations.models.TypeModel;
+import nttdata.grupouno.com.operations.repositories.implementation.AccountClientRepositorio;
 import nttdata.grupouno.com.operations.repositories.implementation.MasterAccountRepository;
 import nttdata.grupouno.com.operations.repositories.implementation.TypeAccountRepository;
 import nttdata.grupouno.com.operations.services.IMasterAccountServices;
@@ -18,11 +19,13 @@ public class MasterAccountServices implements IMasterAccountServices {
     private MasterAccountRepository accountRepository;
     @Autowired
     private TypeAccountRepository typeAccountRepository;
+    @Autowired
+    private AccountClientRepositorio accountClientRepositorio;
 
     @Override
     public Mono<MasterAccountModel> createAccount(MasterAccountModel account) {
         account.setId(UUID.randomUUID().toString());
-        account.setType(new TypeModel(account.getType().getCode(), null, null, null, null, null, null));
+        account.setType(new TypeModel(account.getType().getCode(), null, null, null, null, null, null, null, null));
 
         return accountRepository.save(account)
                 .flatMap(c -> typeAccountRepository.findById(c.getType().getCode()).flatMap(x -> {
@@ -66,6 +69,17 @@ public class MasterAccountServices implements IMasterAccountServices {
 
     @Override
     public Mono<MasterAccountModel> findByAccount(String numberAccount) {
-        return accountRepository.findByNumberAccount(numberAccount);
+        return accountRepository.findByNumberAccount(numberAccount)
+                .flatMap(masterAccountModel -> typeAccountRepository.findById(masterAccountModel.getType().getCode())
+                        .flatMap(typeModel -> {
+                            masterAccountModel.setType(typeModel);
+                            return Mono.just(masterAccountModel);
+                        }));
+    }
+
+    @Override
+    public Flux<MasterAccountModel> findByClient(String codeClient) {
+        return accountClientRepositorio.findByCodeClient(codeClient)
+                .flatMap(accountClientModel -> findByAccount(accountClientModel.getNumberAccount()));
     }
 }

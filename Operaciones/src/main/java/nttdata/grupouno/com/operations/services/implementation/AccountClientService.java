@@ -1,7 +1,6 @@
 package nttdata.grupouno.com.operations.services.implementation;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Example;
 import org.springframework.stereotype.Service;
 
 import nttdata.grupouno.com.operations.models.AccountClientModel;
@@ -32,11 +31,26 @@ public class AccountClientService implements IAccountClientService {
 
     @Override
     public Flux<AccountClientModel> findByClientTypeAccount(String codeCliente, String typeAccount) {
-        return accountClientRepositorio.findAll(Example.of(new AccountClientModel(codeCliente, null, null, null, typeAccount)));
+        return accountClientRepositorio.findByNumberAccountAndTypeAccount(codeCliente, typeAccount);
     }
 
     @Override
     public Flux<AccountClientModel> findAll() {
         return accountClientRepositorio.findAll();
+    }
+
+    @Override
+    public Mono<Long> countByCodeClientAndTypeAccount(String codeClient, String typeAccount) {
+        return accountClientRepositorio.countByCodeClientAndTypeAccount(codeClient, typeAccount);
+    }
+
+    @Override
+    public Mono<AccountClientModel> findById(String id){
+        return accountClientRepositorio.findById(id);
+    }
+
+    @Override
+    public Mono<Long> countByCodeClientAndTypeAccountAndTypeClient(String codeCliente, String typeAccount, String typeClient) {
+        return accountClientRepositorio.countByCodeClientAndTypeAccountAndTypeClient(codeCliente, typeAccount, typeClient);
     }
 }

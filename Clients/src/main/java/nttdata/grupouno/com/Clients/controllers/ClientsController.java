@@ -1,6 +1,9 @@
 package nttdata.grupouno.com.Clients.controllers;
 
+import io.github.resilience4j.circuitbreaker.annotation.CircuitBreaker;
 import nttdata.grupouno.com.Clients.models.Clients;
+import nttdata.grupouno.com.Clients.models.MasterAccount;
+import nttdata.grupouno.com.Clients.models.MovementDetail;
 import nttdata.grupouno.com.Clients.models.dto.ClientsLegal;
 import nttdata.grupouno.com.Clients.models.dto.ClientsNatural;
 import nttdata.grupouno.com.Clients.models.dto.NaturalClients;
@@ -19,6 +22,7 @@ import reactor.core.publisher.Mono;
 import javax.validation.Valid;
 import java.net.URI;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @RestController
@@ -35,12 +39,12 @@ public class ClientsController {
     private ClientsNaturalService clientsNaturalService;
 
     @GetMapping("/legal")
-    public Flux<ClientsLegal> findAllLegal(){
+    public Flux<ClientsLegal> findAllLegal() {
         return clientsService.listAllClientsLegal();
     }
 
     @GetMapping("/legal/{id}")
-    public Mono<ClientsLegal> findAllByIdLegal(@PathVariable final String id){
+    public Mono<ClientsLegal> findAllByIdLegal(@PathVariable final String id) {
         return clientsLegalService.findAllById(id);
     }
 
@@ -81,23 +85,17 @@ public class ClientsController {
 
     @GetMapping("/{id}")
     public Mono<Clients> findAllById(@PathVariable final String id){
-        return clientsService.findAllById(id).flatMap(clients -> {
-            return  Mono.just(clients);
-        });
+        return clientsService.findAllById(id);
     }
 
     @GetMapping("/findByIdTypePerson/{idTypePerson}")
     public Flux<Clients> findByIdTypePerson(@PathVariable(value ="idTypePerson" ) final Long idTypePerson){
-        return clientsService.findByIdTypePerson(idTypePerson).flatMap(clients ->{
-            return Flux.just(clients);
-        });
+        return clientsService.findByIdTypePerson(idTypePerson);
     }
 
     @GetMapping("/findByIdPerson/{idPerson}")
     public Mono<Clients> findByIdPerson(@PathVariable(value ="idPerson" ) final String idPerson){
-        return clientsService.findByIdPerson(idPerson).flatMap(clients ->{
-            return Mono.just(clients);
-        });
+        return clientsService.findByIdPerson(idPerson);
     }
 
 
@@ -129,7 +127,7 @@ public class ClientsController {
     public Mono<ResponseEntity<Clients>> updateClient(@Valid @RequestBody final Clients client,@PathVariable final String id){
         return clientsService.updateClient(client,id)
                 .map(c -> ResponseEntity.created(
-                        URI.create("/api/clients/".concat(c.getId().toString())))
+                        URI.create("/api/clients/".concat(c.getId())))
                                 .contentType(MediaType.APPLICATION_JSON).body(c))
                         .defaultIfEmpty(ResponseEntity.notFound().build());
     }
@@ -139,6 +137,56 @@ public class ClientsController {
         return clientsService.findAllById(id).flatMap(c ->{
             return clientsService.deleteClient(c.getId())
                     .then(Mono.just(new ResponseEntity<Void>(HttpStatus.NO_CONTENT)));
-        }).defaultIfEmpty(new ResponseEntity<Void>(HttpStatus.NOT_FOUND));
+        }).defaultIfEmpty(new ResponseEntity<>(HttpStatus.NOT_FOUND));
+    }
+
+
+    @GetMapping("/natural/movement/{documentNumber}")
+    @CircuitBreaker(name="operation", fallbackMethod = "fallBackfindMovementByIdNatural")
+    public Flux<MovementDetail> findMovementByIdNatural(@PathVariable final Long documentNumber){
+        return clientsNaturalService.findMovementByDocumentNumber(documentNumber);
+    }
+
+    @CircuitBreaker(name="operation", fallbackMethod = "fallBackfindMovementByIdLegal")
+    @GetMapping("/legal/movement/{ruc}")
+    public Flux<MovementDetail> findMovementByIdLegal(@PathVariable final Long ruc){
+        return clientsLegalService.findMovementByRuc(ruc);
+    }
+    @CircuitBreaker(name="operation", fallbackMethod = "fallBackfindAccountByIdNatural")
+    @GetMapping("/natural/account/{documentNumber}")
+    public Flux<MasterAccount> findAccountByIdNatural(@PathVariable final Long documentNumber){
+        return clientsNaturalService.findAccountByDocumentNumber(documentNumber);
+    }
+
+    @CircuitBreaker(name="operation", fallbackMethod = "fallBackfindAccountByIdLegal")
+    @GetMapping("/legal/account/{ruc}")
+    public Flux<MasterAccount> findAccountByIdLegal(@PathVariable final Long ruc){
+        return clientsLegalService.findAccountByRuc(ruc);
+    }
+
+    private Flux<MovementDetail> fallBackfindMovementByIdNatural( RuntimeException ex){
+        MovementDetail details= new MovementDetail();
+        details.setCurrency("El microservicio de movimiento no esta disponible. fallBackfindMovementByIdNatural");
+        return Flux.just(details);
+        //return  new ResponseEntity("El microservicio de movimiento no esta disponible. fallBackfindMovementByIdNatural",HttpStatus.OK);
+
+    }
+
+    private ResponseEntity<List<MovementDetail>> fallBackfindMovementByIdLegal(@PathVariable final Long ruc, RuntimeException ex){
+        MovementDetail movementDetail=new MovementDetail();
+        return  new ResponseEntity("El microservicio de movimiento no esta disponible. fallBackfindMovementByIdLegal",HttpStatus.OK);
+
+    }
+
+    private ResponseEntity<List<MovementDetail>> fallBackfindAccountByIdNatural(@PathVariable final Long ruc, RuntimeException ex){
+        MovementDetail movementDetail=new MovementDetail();
+        return  new ResponseEntity("El microservicio de movimiento no esta disponible. fallBackfindAccountByIdNatural",HttpStatus.OK);
+
+    }
+
+    private ResponseEntity<List<MovementDetail>> fallBackfindAccountByIdLegal(@PathVariable final Long ruc, RuntimeException ex){
+        MovementDetail movementDetail=new MovementDetail();
+        return  new ResponseEntity("El microservicio de movimiento no esta disponible. fallBackfindAccountByIdLegal "+ruc,HttpStatus.OK);
+
     }
 }

@@ -1,8 +1,6 @@
 package nttdata.grupouno.com.Clients.controllers;
 
-import nttdata.grupouno.com.Clients.models.Clients;
 import nttdata.grupouno.com.Clients.models.LegalPerson;
-import nttdata.grupouno.com.Clients.services.ClientsService;
 import nttdata.grupouno.com.Clients.services.LegalPersonService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -14,7 +12,6 @@ import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
 import javax.validation.Valid;
-import javax.validation.constraints.Max;
 import java.net.URI;
 import java.util.HashMap;
 import java.util.Map;
@@ -26,9 +23,6 @@ public class LegalPersonController {
     @Autowired
     private LegalPersonService legalPersonService;
 
-    @Autowired
-    private ClientsService clientsService;
-
     @GetMapping
     public Flux<LegalPerson> findAll() {
         return legalPersonService.listAllLegalPerson();
@@ -36,23 +30,18 @@ public class LegalPersonController {
 
     @GetMapping("/{id}")
     public Mono<LegalPerson> findAllById(@PathVariable final String id) {
-        return legalPersonService.findAllById(id).flatMap(l -> {
-            return Mono.just(l);
-        });
+        return legalPersonService.findAllById(id);
     }
 
     @GetMapping("/ruc/{ruc}")
     public Mono<LegalPerson> findAllByRuc(@PathVariable final Long ruc) {
-        return legalPersonService.findByRuc(ruc).flatMap(l -> {
-            return Mono.just(l);
-        });
+        return legalPersonService.findByRuc(ruc);
     }
+
 
     @GetMapping("/businessName/{name}")
     public Flux<LegalPerson> findAllByBusinessName(@PathVariable final String name) {
-        return legalPersonService.findByBusinessName(name).flatMap(l -> {
-            return Mono.just(l);
-        });
+        return legalPersonService.findByBusinessName(name);
     }
 
     @PostMapping
@@ -87,7 +76,7 @@ public class LegalPersonController {
     public Mono<ResponseEntity<LegalPerson>> updateLegalPersona(@Valid @RequestBody final LegalPerson legalPerson, @PathVariable final String id) {
         return legalPersonService.updateLegalPerson(legalPerson, id)
                 .map(l -> ResponseEntity.created(
-                                URI.create("/api/legalPerson/".concat(l.getId().toString())))
+                                URI.create("/api/legalPerson/".concat(l.getId())))
                         .contentType(MediaType.APPLICATION_JSON).body(l))
                 .defaultIfEmpty(ResponseEntity.notFound().build());
     }
@@ -97,7 +86,7 @@ public class LegalPersonController {
         return legalPersonService.findAllById(id).flatMap(l -> {
             return legalPersonService.deleteLegalPerson(l.getId())
                     .then(Mono.just(new ResponseEntity<Void>(HttpStatus.NO_CONTENT)));
-        }).defaultIfEmpty(new ResponseEntity<Void>(HttpStatus.NOT_FOUND));
+        }).defaultIfEmpty(new ResponseEntity<>(HttpStatus.NOT_FOUND));
 
     }
 }
