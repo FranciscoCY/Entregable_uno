@@ -1,6 +1,5 @@
 package nttdata.grupouno.com.Clients.services.implementation;
 
-import nttdata.grupouno.com.Clients.convert.ClientsConvert;
 import nttdata.grupouno.com.Clients.convert.NaturalClientsConvert;
 import nttdata.grupouno.com.Clients.models.Clients;
 import nttdata.grupouno.com.Clients.models.NaturalPerson;

@@ -39,12 +39,12 @@ public class ClientsController {
     private ClientsNaturalService clientsNaturalService;
 
     @GetMapping("/legal")
-    public Flux<ClientsLegal> findAllLegal(){
+    public Flux<ClientsLegal> findAllLegal() {
         return clientsService.listAllClientsLegal();
     }
 
     @GetMapping("/legal/{id}")
-    public Mono<ClientsLegal> findAllByIdLegal(@PathVariable final String id){
+    public Mono<ClientsLegal> findAllByIdLegal(@PathVariable final String id) {
         return clientsLegalService.findAllById(id);
     }
 
@@ -85,23 +85,17 @@ public class ClientsController {
 
     @GetMapping("/{id}")
     public Mono<Clients> findAllById(@PathVariable final String id){
-        return clientsService.findAllById(id).flatMap(clients -> {
-            return  Mono.just(clients);
-        });
+        return clientsService.findAllById(id);
     }
 
     @GetMapping("/findByIdTypePerson/{idTypePerson}")
     public Flux<Clients> findByIdTypePerson(@PathVariable(value ="idTypePerson" ) final Long idTypePerson){
-        return clientsService.findByIdTypePerson(idTypePerson).flatMap(clients ->{
-            return Flux.just(clients);
-        });
+        return clientsService.findByIdTypePerson(idTypePerson);
     }
 
     @GetMapping("/findByIdPerson/{idPerson}")
     public Mono<Clients> findByIdPerson(@PathVariable(value ="idPerson" ) final String idPerson){
-        return clientsService.findByIdPerson(idPerson).flatMap(clients ->{
-            return Mono.just(clients);
-        });
+        return clientsService.findByIdPerson(idPerson);
     }
 
 
@@ -133,7 +127,7 @@ public class ClientsController {
     public Mono<ResponseEntity<Clients>> updateClient(@Valid @RequestBody final Clients client,@PathVariable final String id){
         return clientsService.updateClient(client,id)
                 .map(c -> ResponseEntity.created(
-                        URI.create("/api/clients/".concat(c.getId().toString())))
+                        URI.create("/api/clients/".concat(c.getId())))
                                 .contentType(MediaType.APPLICATION_JSON).body(c))
                         .defaultIfEmpty(ResponseEntity.notFound().build());
     }
@@ -143,7 +137,7 @@ public class ClientsController {
         return clientsService.findAllById(id).flatMap(c ->{
             return clientsService.deleteClient(c.getId())
                     .then(Mono.just(new ResponseEntity<Void>(HttpStatus.NO_CONTENT)));
-        }).defaultIfEmpty(new ResponseEntity<Void>(HttpStatus.NOT_FOUND));
+        }).defaultIfEmpty(new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
 
 
@@ -192,7 +186,7 @@ public class ClientsController {
 
     private ResponseEntity<List<MovementDetail>> fallBackfindAccountByIdLegal(@PathVariable final Long ruc, RuntimeException ex){
         MovementDetail movementDetail=new MovementDetail();
-        return  new ResponseEntity("El microservicio de movimiento no esta disponible. fallBackfindAccountByIdLegal",HttpStatus.OK);
+        return  new ResponseEntity("El microservicio de movimiento no esta disponible. fallBackfindAccountByIdLegal "+ruc,HttpStatus.OK);
 
     }
 }

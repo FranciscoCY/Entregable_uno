@@ -29,12 +29,14 @@ public class ClientsNaturalServiceImpl implements ClientsNaturalService {
     private final WebClient webClient;
 
     public ClientsNaturalServiceImpl(WebClient.Builder webClientBuilder) {
-        this.webClient = webClientBuilder.baseUrl("http://localhost:8010").build();
+        this.webClient = webClientBuilder.baseUrl("http://localhost:8010")
+                .build();
     }
 
     @Override
     public Mono<NaturalClients> findAllById(String id) {
-        return naturalPersonRepository.findById(id).flatMap(naturalPerson -> {
+        return naturalPersonRepository.findById(id)
+                .flatMap(naturalPerson -> {
             NaturalClients naturalClients = clientsConvert.convertNaturalClient(naturalPerson);
 
             Mono<Clients> clientsMono =  clientsService.findByIdPerson(naturalClients.getIdPerson());
@@ -50,8 +52,8 @@ public class ClientsNaturalServiceImpl implements ClientsNaturalService {
 
     @Override
     public Mono<NaturalClients> findByDocumentNumber(Long documentNumber) {
-        System.out.println("metodoServiClient findByDocumentNumber()");
-        return naturalPersonRepository.findByDocumentNumber(documentNumber).flatMap(naturalPerson -> {
+        return naturalPersonRepository.findByDocumentNumber(documentNumber)
+                .flatMap(naturalPerson -> {
             NaturalClients naturalClients = clientsConvert.convertNaturalClient(naturalPerson);
 
             Mono<Clients> clientsMono = clientsService.findByIdPerson(naturalClients.getIdPerson());
@@ -67,7 +69,8 @@ public class ClientsNaturalServiceImpl implements ClientsNaturalService {
 
     @Override
     public Flux<NaturalClients> findByNames(String names) {
-        return naturalPersonRepository.findByNames(names).flatMap(naturalPerson -> {
+        return naturalPersonRepository.findByNames(names)
+                .flatMap(naturalPerson -> {
             NaturalClients naturalClients = clientsConvert.convertNaturalClient(naturalPerson);
 
             Mono<Clients> clientsMono = clientsService.findByIdPerson(naturalClients.getIdPerson());
@@ -83,7 +86,8 @@ public class ClientsNaturalServiceImpl implements ClientsNaturalService {
 
     @Override
     public Flux<NaturalClients> findByLastNames(String lastNames) {
-        return naturalPersonRepository.findByLastNames(lastNames).flatMap(naturalPerson -> {
+        return naturalPersonRepository.findByLastNames(lastNames)
+                .flatMap(naturalPerson -> {
             NaturalClients naturalClients = clientsConvert.convertNaturalClient(naturalPerson);
 
             Mono<Clients> clientsMono = clientsService.findByIdPerson(naturalClients.getIdPerson());
@@ -99,16 +103,18 @@ public class ClientsNaturalServiceImpl implements ClientsNaturalService {
 
     @Override
     public Flux<MasterAccount> findAccountByDocumentNumber(Long documentNumber) {
-        return findByDocumentNumber(documentNumber).flux().flatMap(naturalClients -> this.webClient.get()
-                .uri("/api/account/client/{codeClient}",naturalClients.getId())
+        return findByDocumentNumber(documentNumber).flux()
+                .flatMap(naturalClients -> this.webClient.get()
+                .uri("/api/account/client/{codeClient}", naturalClients.getId())
                 .retrieve().bodyToFlux(MasterAccount.class));
     }
 
     @Override
     public Flux<MovementDetail> findMovementByDocumentNumber(Long documentNumber) {
-        System.out.println("findAccountByIdNatural>>>");
-        return findByDocumentNumber(documentNumber).flux().flatMap(naturalClients -> this.webClient.get()
-                .uri("/api/movement/client/{codeClient}",naturalClients.getId())
+        return findByDocumentNumber(documentNumber).flux()
+                .flatMap(naturalClients -> this.webClient.get()
+                .uri("/api/movement/client/{codeClient}",
+                        naturalClients.getId())
                 .retrieve().bodyToFlux(MovementDetail.class));
     }
 }

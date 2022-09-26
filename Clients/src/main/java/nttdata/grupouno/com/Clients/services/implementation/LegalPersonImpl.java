@@ -1,12 +1,9 @@
 package nttdata.grupouno.com.Clients.services.implementation;
 
 import nttdata.grupouno.com.Clients.convert.ClientsConvert;
-import nttdata.grupouno.com.Clients.convert.NaturalClientsConvert;
 import nttdata.grupouno.com.Clients.models.Clients;
 import nttdata.grupouno.com.Clients.models.LegalPerson;
-import nttdata.grupouno.com.Clients.models.NaturalPerson;
 import nttdata.grupouno.com.Clients.models.dto.ClientsLegal;
-import nttdata.grupouno.com.Clients.models.dto.NaturalClients;
 import nttdata.grupouno.com.Clients.repositories.LegalPersonRepository;
 import nttdata.grupouno.com.Clients.services.LegalPersonService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,16 +29,12 @@ public class LegalPersonImpl implements LegalPersonService {
 
     @Override
     public Flux<LegalPerson> listAllLegalPerson() {
-        return legalPersonRepository.findAll().flatMap(legaPerson -> {
-            return Mono.just(legaPerson);
-        });
+        return legalPersonRepository.findAll();
     }
 
     @Override
     public Mono<LegalPerson> findAllById(String id) {
-        return legalPersonRepository.findById(id).flatMap(legalPerson -> {
-            return Mono.just(legalPerson);
-        });
+        return legalPersonRepository.findById(id);
     }
 
     @Override
@@ -88,15 +81,11 @@ public class LegalPersonImpl implements LegalPersonService {
 
     @Override
     public Mono<LegalPerson> findByRuc(Long ruc) {
-        return legalPersonRepository.findByRuc(ruc).flatMap(l ->{
-            return Mono.just(l);
-        });
+        return legalPersonRepository.findByRuc(ruc);
     }
 
     @Override
     public Flux<LegalPerson> findByBusinessName(String businessName) {
-        return legalPersonRepository.findByBusinessName(businessName).flatMap(l ->{
-            return Mono.just(l);
-        });
+        return legalPersonRepository.findByBusinessName(businessName);
     }
 }

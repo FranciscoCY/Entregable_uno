@@ -1,8 +1,6 @@
 package nttdata.grupouno.com.Clients.repositories;
 
-import nttdata.grupouno.com.Clients.models.Clients;
 import nttdata.grupouno.com.Clients.models.LegalPerson;
-import nttdata.grupouno.com.Clients.models.dto.ClientsLegal;
 import org.springframework.data.mongodb.repository.ReactiveMongoRepository;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
