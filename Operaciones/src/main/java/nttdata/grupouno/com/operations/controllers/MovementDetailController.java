@@ -20,7 +20,7 @@ public class MovementDetailController {
     @PostMapping("/")
     @ResponseStatus(HttpStatus.CREATED)
     public void createMovement(@RequestBody MovementDetailModel movement){
-        movementService.createAccount(movement);
+        movementService.createMovement(movement);
     }
 
     @GetMapping(value = "/all")
@@ -44,12 +44,21 @@ public class MovementDetailController {
     }
 
     @GetMapping("/operation/check/{id}")
-    public ResponseEntity<Mono<MasterAccountModel>> checkBalance(@PathVariable("account") String id){
-        System.out.println(1);
+    public ResponseEntity<Mono<MasterAccountModel>> checkBalance(@PathVariable("id") String id){
         Mono<MasterAccountModel> masterAccount = movementService.checkBalance(id);
-        System.out.println(2);
         return new ResponseEntity<>(masterAccount, masterAccount!=null ? HttpStatus.OK : HttpStatus.NOT_FOUND);
+    }
 
+    @GetMapping("/operation/deposit/{id}/{amount}")
+    public ResponseEntity<Mono<MasterAccountModel>> depositAmount(@PathVariable("id") String id, @PathVariable("amount") Double amount){
+        Mono<MasterAccountModel> masterAccount = movementService.depositAmount(id,amount);
+        return new ResponseEntity<>(masterAccount, masterAccount!=null ? HttpStatus.OK : HttpStatus.NOT_FOUND);
+    }
+
+    @GetMapping("/operation/withdraw/{id}/{amount}")
+    public ResponseEntity<Mono<MasterAccountModel>> withdrawAmount(@PathVariable("id") String id, @PathVariable("amount") Double amount){
+        Mono<MasterAccountModel> masterAccount = movementService.withdrawAmount(id,amount);
+        return new ResponseEntity<>(masterAccount, masterAccount!=null ? HttpStatus.OK : HttpStatus.NOT_FOUND);
     }
 
 }
