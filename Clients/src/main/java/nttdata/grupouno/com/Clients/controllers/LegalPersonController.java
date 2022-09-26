@@ -1,6 +1,10 @@
 package nttdata.grupouno.com.Clients.controllers;
 
+import nttdata.grupouno.com.Clients.convert.ClientsConvert;
+import nttdata.grupouno.com.Clients.models.Clients;
 import nttdata.grupouno.com.Clients.models.LegalPerson;
+import nttdata.grupouno.com.Clients.models.dto.ClientsLegal;
+import nttdata.grupouno.com.Clients.services.ClientsService;
 import nttdata.grupouno.com.Clients.services.LegalPersonService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -13,7 +17,9 @@ import reactor.core.publisher.Mono;
 
 import javax.validation.Valid;
 import java.net.URI;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @RestController
@@ -22,6 +28,12 @@ public class LegalPersonController {
 
     @Autowired
     private LegalPersonService legalPersonService;
+
+    @Autowired
+    private ClientsService clientsService;
+
+    @Autowired
+    private ClientsConvert clientsConvert;
 
     @GetMapping
     public Flux<LegalPerson> findAll() {
@@ -53,11 +65,22 @@ public class LegalPersonController {
                 return Mono.just(ResponseEntity.badRequest()
                         .contentType(MediaType.APPLICATION_JSON)
                         .body(respuesta));
-            }).switchIfEmpty(legalPersonService.createLegalPerson(legalPerson).map(l -> {
-                        respuesta.put("client", l);
-                        return ResponseEntity.created(URI.create("/api/legalPerson"))
-                                .contentType(MediaType.APPLICATION_JSON)
-                                .body(respuesta);
+            }).switchIfEmpty(
+                    legalPersonService.createLegalPerson(legalPerson).flatMap(s -> {
+                        Clients clients = new Clients();
+                        clients.setIdTypePerson(2L);
+                        clients.setIdPerson(s.getId());
+                        return clientsService.createClient(clients).map(c -> {
+                            List<LegalPerson> list=new ArrayList<>();
+                            ClientsLegal dto=clientsConvert.convertLegalDTO(c);
+                            list.add(s);
+                            dto.setLegalPersonList(list);
+
+                            respuesta.put("Cliente Juridico Creado", dto);
+                            return ResponseEntity.created(URI.create("/api/clients"))
+                                    .contentType(MediaType.APPLICATION_JSON)
+                                    .body(respuesta);
+                        });
                     })
             );
         }).onErrorResume(ex -> {

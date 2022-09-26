@@ -1,7 +1,11 @@
 package nttdata.grupouno.com.Clients.controllers;
 
+import nttdata.grupouno.com.Clients.convert.NaturalClientsConvert;
+import nttdata.grupouno.com.Clients.models.Clients;
 import nttdata.grupouno.com.Clients.models.NaturalPerson;
+import nttdata.grupouno.com.Clients.models.dto.NaturalClients;
 import nttdata.grupouno.com.Clients.services.NaturalPersonService;
+import nttdata.grupouno.com.Clients.services.implementation.ClientServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -15,6 +19,7 @@ import javax.validation.Valid;
 import java.net.URI;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.UUID;
 
 @RestController
 @RequestMapping("/api/naturalPerson")
@@ -22,6 +27,10 @@ public class NaturalPersonController {
 
     @Autowired
     NaturalPersonService personService;
+    @Autowired
+    private ClientServiceImpl clientService;
+    @Autowired
+    private NaturalClientsConvert naturalClientsConvert;
 
     @GetMapping
     public Flux<NaturalPerson> findAll() {
@@ -44,11 +53,19 @@ public class NaturalPersonController {
                 return Mono.just(ResponseEntity.badRequest()
                         .contentType(MediaType.APPLICATION_JSON)
                         .body(respuesta));
-            }).switchIfEmpty(personService.createNaturalPerson(p).map(s -> {
-                        respuesta.put("Persona Natural Creada", s);
-                        return ResponseEntity.created(URI.create("/api/clients"))
-                                .contentType(MediaType.APPLICATION_JSON)
-                                .body(respuesta);
+            }).switchIfEmpty(
+                    personService.createNaturalPerson(p).flatMap(s -> {
+                        Clients clients = new Clients();
+                        clients.setIdTypePerson(1L);
+                        clients.setIdPerson(s.getId());
+                        return clientService.createClient(clients).map(c -> {
+                            NaturalClients naturalClients = naturalClientsConvert.convertNaturalClient(c);
+                            naturalClients.setPerson(s);
+                            respuesta.put("Persona Natural Creada", naturalClients);
+                            return ResponseEntity.created(URI.create("/api/clients"))
+                                    .contentType(MediaType.APPLICATION_JSON)
+                                    .body(respuesta);
+                        });
                     })
             );
         }).onErrorResume(ex -> {

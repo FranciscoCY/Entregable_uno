@@ -1,9 +1,6 @@
 package nttdata.grupouno.com.Clients.services.implementation;
 
-import nttdata.grupouno.com.Clients.convert.NaturalClientsConvert;
-import nttdata.grupouno.com.Clients.models.Clients;
 import nttdata.grupouno.com.Clients.models.NaturalPerson;
-import nttdata.grupouno.com.Clients.models.dto.NaturalClients;
 import nttdata.grupouno.com.Clients.repositories.NaturalPersonRepository;
 import nttdata.grupouno.com.Clients.services.NaturalPersonService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,11 +16,11 @@ public class NaturalPersonServiceImpl implements NaturalPersonService {
     @Autowired
     private NaturalPersonRepository naturalPersonRepository;
 
-    @Autowired
-    private ClientServiceImpl clientService;
+    //@Autowired
+    //private ClientServiceImpl clientService;
 
-    @Autowired
-    private NaturalClientsConvert naturalClientsConvert;
+    //@Autowired
+    //private NaturalClientsConvert naturalClientsConvert;
 
     @Override
     public Flux<NaturalPerson> listAllNaturalPerson() {
@@ -36,13 +33,22 @@ public class NaturalPersonServiceImpl implements NaturalPersonService {
     }
 
     @Override
-    public Mono<NaturalClients> createNaturalPerson(NaturalPerson naturalPerson) {
+    public Mono<NaturalPerson> createNaturalPerson(NaturalPerson naturalPerson) {
+        if(naturalPerson == null){
+            return null;
+        }else{
+            naturalPerson.setId(UUID.randomUUID().toString());
+            return naturalPersonRepository.save(naturalPerson);
+        }
+    }
+
+    /*public Mono<NaturalClients> createNaturalPerson2(NaturalPerson naturalPerson) {
         if(naturalPerson == null){
             return null;
         }else{
             naturalPerson.setId(UUID.randomUUID().toString());
             Clients clients = new Clients();
-            clients.setIdPerson(naturalPerson.getId());
+            clients.setId(naturalPerson.getId());
             clients.setIdTypePerson(1L);
             clients.setIdPerson(naturalPerson.getId());
             return clientService.createClient(clients).flatMap(clients1 -> {
@@ -63,7 +69,7 @@ public class NaturalPersonServiceImpl implements NaturalPersonService {
                 });
             });
         }
-    }
+    }*/
 
     @Override
     public Mono<NaturalPerson> updateNaturalPerson(NaturalPerson naturalPerson) {
