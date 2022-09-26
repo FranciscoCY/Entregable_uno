@@ -22,4 +22,5 @@ public class TypeModel {
     private Integer countPerson;
     private Integer countBusiness;
     private Double amountStart;
+    private String codeRequired;
 }

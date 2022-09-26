@@ -1,7 +1,6 @@
 package nttdata.grupouno.com.Clients.controllers;
 
 import nttdata.grupouno.com.Clients.models.LegalPerson;
-import nttdata.grupouno.com.Clients.services.ClientsService;
 import nttdata.grupouno.com.Clients.services.LegalPersonService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -23,9 +22,6 @@ public class LegalPersonController {
 
     @Autowired
     private LegalPersonService legalPersonService;
-
-    @Autowired
-    private ClientsService clientsService;
 
     @GetMapping
     public Flux<LegalPerson> findAll() {
