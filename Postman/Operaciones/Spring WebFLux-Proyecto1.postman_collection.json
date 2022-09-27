@@ -1,13 +1,42 @@
 {
 	"info": {
-		"_postman_id": "1bc95807-e140-4b42-b12f-008a438c17aa",
+		"_postman_id": "fa8568dd-1761-4466-b9de-9da969b9ee20",
 		"name": "Spring WebFLux-Proyecto1",
-		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-		"_exporter_id": "18152215"
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
 	"item": [
 		{
 			"name": "Lista todo cuenta",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n        \"rootAccount\": \"1234\",\r\n        \"destinationAccount\": \"12345\",\r\n        \"amount\": 30.0\r\n        \r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8001/operation/movement/transfer",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8001",
+					"path": [
+						"operation",
+						"movement",
+						"transfer"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Lista todo cuenta Copy",
 			"request": {
 				"method": "GET",
 				"header": [],
