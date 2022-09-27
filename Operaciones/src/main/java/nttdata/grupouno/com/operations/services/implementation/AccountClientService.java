@@ -2,8 +2,10 @@ package nttdata.grupouno.com.operations.services.implementation;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.reactive.function.client.WebClient;
 
 import nttdata.grupouno.com.operations.models.AccountClientModel;
+import nttdata.grupouno.com.operations.models.MasterAccountModel;
 import nttdata.grupouno.com.operations.repositories.implementation.AccountClientRepositorio;
 import nttdata.grupouno.com.operations.services.IAccountClientService;
 import reactor.core.publisher.Flux;
@@ -13,6 +15,12 @@ import reactor.core.publisher.Mono;
 public class AccountClientService implements IAccountClientService {
     @Autowired
     private AccountClientRepositorio accountClientRepositorio;
+
+    private final WebClient webClient;
+
+    public AccountClientService(WebClient.Builder webClientBuilder) {
+        this.webClient = webClientBuilder.baseUrl("http://localhost:8001").build();
+    }
 
     @Override
     public Flux<AccountClientModel> findByCodeClient(String codeClient) {
@@ -26,7 +34,12 @@ public class AccountClientService implements IAccountClientService {
 
     @Override
     public Mono<AccountClientModel> registerClient(AccountClientModel model) {
-        return accountClientRepositorio.save(model);
+        Mono<MasterAccountModel> validClient = this.webClient.get().uri("/api/clients/{id}", model.getCodeClient()).retrieve().bodyToMono(MasterAccountModel.class);
+        return validClient.flatMap(x -> {
+            if(!x.getId().equals(model.getCodeClient()))
+                return Mono.empty();
+            return accountClientRepositorio.save(model);
+        }).onErrorResume(y -> Mono.empty());
     }
 
     @Override

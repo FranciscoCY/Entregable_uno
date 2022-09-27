@@ -85,6 +85,11 @@ public class MasterAccountController {
                                 return Mono.just(ResponseEntity.created(URI.create("/api/account/bank"))
                                         .body(response));
                             })
+                            .switchIfEmpty(accountServices.deleteBydId(e.getId()).flatMap(ff -> {
+                                response.put("clientsError", "El cliente no pudo ser verificado para la creación de la cuenta");
+                                return Mono.just(ResponseEntity.badRequest()
+                                    .body(response));
+                            }))
                             .retry(1)
                             .onErrorResume(g -> {
                                 response.put("clientsError", a.getClientModel());
