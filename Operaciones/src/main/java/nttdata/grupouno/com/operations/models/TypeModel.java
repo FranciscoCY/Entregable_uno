@@ -23,4 +23,6 @@ public class TypeModel {
     private Integer countBusiness;
     private Double amountStart;
     private String codeRequired;
+    private Double maintenanceCommission;
+    private String product;
 }

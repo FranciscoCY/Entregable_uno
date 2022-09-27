@@ -46,6 +46,7 @@ public class ClientServiceImpl implements ClientsService {
                 legalPerson1.setId(x.getId());
                 legalPerson1.setRuc(x.getRuc());
                 legalPerson1.setBusinessName(x.getBusinessName());
+                legalPerson1.setMail(x.getMail());
                 list.add(legalPerson1);
                 dto.setLegalPersonList(list);
                 return Mono.just(dto);

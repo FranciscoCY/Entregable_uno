@@ -2,8 +2,10 @@ package nttdata.grupouno.com.operations.controllers;
 
 import nttdata.grupouno.com.operations.models.MasterAccountModel;
 import nttdata.grupouno.com.operations.models.MovementDetailModel;
+import nttdata.grupouno.com.operations.services.implementation.AccountClientService;
 import nttdata.grupouno.com.operations.services.implementation.MasterAccountServices;
 import nttdata.grupouno.com.operations.services.implementation.MovementDetailService;
+import nttdata.grupouno.com.operations.util.Util;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -23,7 +25,8 @@ public class MovementDetailController {
 
     @Autowired
     MovementDetailService movementService;
-
+    @Autowired
+    AccountClientService clientService;
     @Autowired
     MasterAccountServices masterAccountServices;
 
@@ -155,5 +158,37 @@ public class MovementDetailController {
                 .contentType(MediaType.APPLICATION_JSON)
                 .body(respuesta));
 
+    }
+
+    @GetMapping("/maintenace/{numberAccount}")
+    public ResponseEntity<Flux<MasterAccountModel>> chargeMaintenace(@PathVariable("numberAccount") String numberAccount){
+
+        Flux<MasterAccountModel> accountFlux = masterAccountServices.findByAccount(numberAccount).flux().flatMap(account -> {
+            if (account.getType().getCode().equals("AHO2")){
+                return clientService.findByNumBerAccount(account.getNumberAccount()).flatMap(accountClientModel -> {
+                    if (accountClientModel.getTypeClient().equals("J")){
+                        return masterAccountServices.findByClient(accountClientModel.getCodeClient())
+                                .filter(masterAccountModel -> {
+                                    return masterAccountModel.getStatus().equals("A");
+                                }).filter(masterAccountModel -> {
+                                    return masterAccountModel.getType().getProduct().equals("C");
+                                }).filter(masterAccountModel -> {
+                                    return Util.stringToDate(masterAccountModel.getStartDate())
+                                            .compareTo(Util.stringToDate(account.getStartDate())) <= 1;
+                                }).switchIfEmpty(
+                                        movementService.chargeMaintenace(account.getNumberAccount()).flux());
+                    }else{
+                        System.out.println("ES UN TIPO NATURAL");
+                        return movementService.chargeMaintenace(account.getNumberAccount()).flux();
+                    }
+
+                });
+            }else{
+                System.out.println("ES OTRA CUENTA");
+                return Flux.empty();
+            }
+
+        });
+        return new ResponseEntity<>(accountFlux, accountFlux!=null ? HttpStatus.OK : HttpStatus.NOT_FOUND);
     }
 }

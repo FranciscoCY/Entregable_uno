@@ -39,8 +39,8 @@ public class MasterAccountServicesTest {
 
     @BeforeEach
     void init(){
-        typeModel = Mono.just(new TypeModel("AHO1", "Ahorro", "A", 10, 0.0, 1, 1, 20.0, null));
-        modelMaster = new MasterAccountModel("1", "12", new TypeModel("AHO1", null, null, null, null, null, null, null, null), "2021.01.02", "A", null, 20.0, "PEN");
+        typeModel = Mono.just(new TypeModel("AHO1", "Ahorro", "A", 10, 0.0, 1, 1, 20.0, null,null,null));
+        modelMaster = new MasterAccountModel("1", "12", new TypeModel("AHO1", null, null, null, null, null, null, null, null,null,null), "2021.01.02", "A", null, 20.0, "PEN");
         masterAccountModel = Mono.just(modelMaster);
     }
 

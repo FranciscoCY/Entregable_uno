@@ -20,4 +20,8 @@ public interface IMovementDetailService {
 
     Mono<MasterAccountModel> withdrawAmount(String id, Double amount);
 
+    Mono<Integer> countByAccountMonthYear(String numberAccount, String month, String year);
+
+    Mono<MasterAccountModel> chargeMaintenace(String numberAccount);
+
 }

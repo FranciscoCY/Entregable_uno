@@ -34,7 +34,7 @@ public class TypeAccountServiceTest {
 
     @BeforeEach
     void init(){
-        modelType = new TypeModel("AHO", "Ahorro", "A", 1 , 10.0, 1, 0, 0.0, null);
+        modelType = new TypeModel("AHO", "Ahorro", "A", 1 , 10.0, 1, 0, 0.0, null,null,null);
         typeModel = Mono.just(modelType);
         typeModels = typeModel.flux();
     }

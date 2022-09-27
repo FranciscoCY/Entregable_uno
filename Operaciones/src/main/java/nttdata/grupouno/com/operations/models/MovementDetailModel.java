@@ -30,5 +30,6 @@ public class MovementDetailModel {
     private Double commission;
     @NotEmpty
     private String currency; // PEN - USD
-
+    private String month;
+    private String year;
 }
