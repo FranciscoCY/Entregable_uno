@@ -69,13 +69,6 @@ class LegalPersonImplTest {
     }
 
     @Test
-    void deleteLegalPerson() {
-        Mockito.when(legalPersonRepository.deleteById("91138f42-1c69-49c2-b49c-40dfe411d70c")).thenReturn(Mono.empty());
-        Mono<Void> response = legalPersonService.deleteLegalPerson("91138f42-1c69-49c2-b49c-40dfe411d70c");
-        assertEquals(response,Mono.empty());
-    }
-
-    @Test
     void findByRuc() {
         Mockito.when(legalPersonRepository.findByRuc(20158585671457L)).thenReturn(legalPersonMono);
         Mono<LegalPerson> response = legalPersonService.findByRuc(20158585671457L);
