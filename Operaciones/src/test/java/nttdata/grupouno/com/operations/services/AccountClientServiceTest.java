@@ -17,12 +17,15 @@ import nttdata.grupouno.com.operations.repositories.implementation.AccountClient
 import nttdata.grupouno.com.operations.services.implementation.AccountClientService;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
+import nttdata.grupouno.com.operations.util.*;
 
 @ExtendWith(MockitoExtension.class)
 @RequiredArgsConstructor
 public class AccountClientServiceTest {
     @Mock
     private AccountClientRepositorio accountClientRepositorio;
+    @Mock
+    private WebClientApi apiClient;
     @InjectMocks
     private AccountClientService accountClientService;
     @Autowired
