@@ -16,6 +16,7 @@ public class MovementDetailService implements IMovementDetailService {
     @Autowired
     private MovementDetailRepository movementRepository;
 
+    @Autowired
     private MasterAccountServices masterAccountServices;
     @Autowired
     private AccountClientService accountClientService;

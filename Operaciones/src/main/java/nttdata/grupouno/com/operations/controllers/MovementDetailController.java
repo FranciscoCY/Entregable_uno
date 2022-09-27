@@ -2,13 +2,20 @@ package nttdata.grupouno.com.operations.controllers;
 
 import nttdata.grupouno.com.operations.models.MasterAccountModel;
 import nttdata.grupouno.com.operations.models.MovementDetailModel;
+import nttdata.grupouno.com.operations.services.implementation.MasterAccountServices;
 import nttdata.grupouno.com.operations.services.implementation.MovementDetailService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.reactive.function.client.WebClient;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
+
+import java.net.URI;
+import java.util.HashMap;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/operation/movement")
@@ -16,6 +23,15 @@ public class MovementDetailController {
 
     @Autowired
     MovementDetailService movementService;
+
+    @Autowired
+    MasterAccountServices masterAccountServices;
+
+    private final WebClient webClient;
+
+    public MovementDetailController(WebClient.Builder webClientBuilder) {
+        this.webClient = webClientBuilder.baseUrl("http://localhost:8010").build();
+    }
 
     @PostMapping("/")
     @ResponseStatus(HttpStatus.CREATED)
@@ -67,4 +83,77 @@ public class MovementDetailController {
         return new ResponseEntity<>(masterAccount, masterAccount!=null ? HttpStatus.OK : HttpStatus.NOT_FOUND);
     }
 
+    @PutMapping("/transfer")
+    public Mono<ResponseEntity<Map<String, Object>>> transfer(@RequestBody Map<String, String> body) {
+        String cabecera = "", cuerpo = "";
+        String rootAccount = body.get("rootAccount");
+        String destinationAccount = body.get("destinationAccount");
+        Double amount = Double.parseDouble(body.get("amount"));
+        System.out.println(body.get("rootAccount"));
+        System.out.println(body.get("destinationAccount"));
+        System.out.println(body.get("amount"));
+        MasterAccountModel rootAccount1 = new MasterAccountModel();
+        MasterAccountModel destinationAccount1 = new MasterAccountModel();
+
+        Map<String, Object> respuesta = new HashMap<>();
+        Flux<MasterAccountModel> master = this.webClient.get().uri("/operation/account/all").retrieve().bodyToFlux(MasterAccountModel.class);
+        Flux<MasterAccountModel> master1 = this.webClient.get().uri("/operation/account/all").retrieve().bodyToFlux(MasterAccountModel.class);
+        master.filter(a -> a.getNumberAccount().equals(rootAccount)).subscribe(b -> {
+            System.out.println("Prueba");
+            rootAccount1.setNumberAccount(b.getNumberAccount());
+            rootAccount1.setId(b.getId());
+            rootAccount1.setType(b.getType());
+            rootAccount1.setAmount(b.getAmount());
+            rootAccount1.setStatus(b.getStatus());
+            rootAccount1.setCoinType(b.getCoinType());
+            rootAccount1.setEndDate(b.getEndDate());
+            rootAccount1.setStartDate(b.getStartDate());
+            System.out.println(rootAccount1);
+
+            if (rootAccount1 == null) {
+                respuesta.put("Cuenta Origen", "Cuenta origen no existe");
+                System.out.println("Cuenta origen no existe");
+            } else {
+                master1.filter(a -> a.getNumberAccount().equals(destinationAccount))
+                        .subscribe(c -> {
+                            System.out.println("Prueba2");
+                            destinationAccount1.setNumberAccount(c.getNumberAccount());
+                            destinationAccount1.setId(c.getId());
+                            destinationAccount1.setType(c.getType());
+                            destinationAccount1.setAmount(c.getAmount());
+                            destinationAccount1.setStatus(c.getStatus());
+                            destinationAccount1.setCoinType(c.getCoinType());
+                            destinationAccount1.setEndDate(c.getEndDate());
+                            destinationAccount1.setStartDate(c.getStartDate());
+                            System.out.println(destinationAccount1.getStatus());
+
+                            if (destinationAccount1 == null) {
+                                respuesta.put("Cuenta Destino", "Cuenta destino no existe");
+                                System.out.println("Cuenta origen no existe");
+                            } else {
+                                respuesta.put("Cuenta Destino", "Cuenta destino existe");
+                                System.out.println("Cuenta Destino");
+                                if(rootAccount1.getAmount() >= amount){
+                                    System.out.println("Saldo Suficiente");
+                                    System.out.println("Origen: "+rootAccount1.getId());
+                                    System.out.println("Destino: "+destinationAccount1.getId());
+                                    movementService.withdrawAmount(rootAccount1.getId(),amount).subscribe(d ->System.out.println("Origen"+d.getAmount()));
+                                    movementService.depositAmount(destinationAccount1.getId(),amount).subscribe(d ->System.out.println("Destino"+d.getAmount()));
+                                }else{
+                                    System.out.println("Saldo insuficiente");
+                                }
+                            }
+
+                        });
+            }
+            Mono.just(ResponseEntity.created(URI.create("/transfer"))
+                    .contentType(MediaType.APPLICATION_JSON)
+                    .body(respuesta));
+        });
+
+        return Mono.just(ResponseEntity.created(URI.create("/transfer"))
+                .contentType(MediaType.APPLICATION_JSON)
+                .body(respuesta));
+
+    }
 }

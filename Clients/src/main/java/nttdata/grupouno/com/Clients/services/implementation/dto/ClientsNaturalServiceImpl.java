@@ -105,7 +105,7 @@ public class ClientsNaturalServiceImpl implements ClientsNaturalService {
     public Flux<MasterAccount> findAccountByDocumentNumber(Long documentNumber) {
         return findByDocumentNumber(documentNumber).flux()
                 .flatMap(naturalClients -> this.webClient.get()
-                .uri("/api/account/client/{codeClient}", naturalClients.getId())
+                .uri("/operation/account/client/{codeClient}", naturalClients.getId())
                 .retrieve().bodyToFlux(MasterAccount.class));
     }
 
@@ -113,7 +113,7 @@ public class ClientsNaturalServiceImpl implements ClientsNaturalService {
     public Flux<MovementDetail> findMovementByDocumentNumber(Long documentNumber) {
         return findByDocumentNumber(documentNumber).flux()
                 .flatMap(naturalClients -> this.webClient.get()
-                .uri("/api/movement/client/{codeClient}",
+                .uri("/operation/movement/client/{codeClient}",
                         naturalClients.getId())
                 .retrieve().bodyToFlux(MovementDetail.class));
     }
