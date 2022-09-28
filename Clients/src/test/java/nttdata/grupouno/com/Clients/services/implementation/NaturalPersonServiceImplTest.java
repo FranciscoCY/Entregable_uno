@@ -1,13 +1,8 @@
 package nttdata.grupouno.com.Clients.services.implementation;
 
 import lombok.RequiredArgsConstructor;
-import nttdata.grupouno.com.Clients.convert.NaturalClientsConvert;
 import nttdata.grupouno.com.Clients.models.NaturalPerson;
-import nttdata.grupouno.com.Clients.models.dto.NaturalClients;
-import nttdata.grupouno.com.Clients.repositories.ClientesRepository;
 import nttdata.grupouno.com.Clients.repositories.NaturalPersonRepository;
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -16,7 +11,6 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.reactive.function.client.WebClient;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
@@ -40,8 +34,8 @@ class NaturalPersonServiceImplTest {
     private NaturalPerson naturalPerson2;
     @Autowired
     private Mono<NaturalPerson> naturalPersonMono2;
-    @Autowired
-    private Flux<NaturalPerson> naturalPersonFlux2;
+    //@Autowired
+    //private Flux<NaturalPerson> naturalPersonFlux2;
 
     @BeforeEach
     void init() {
@@ -51,7 +45,7 @@ class NaturalPersonServiceImplTest {
 
         naturalPerson2 = new NaturalPerson("ae452d5c-1cc1-4ecb-8108-22294844a7a5",85671457L,1L,"Mateo","Solis Fausto","masculino","camil@mail.com");
         naturalPersonMono2 = Mono.just(naturalPerson2);
-        naturalPersonFlux2 = naturalPersonMono2.flux();
+        //naturalPersonFlux2 = naturalPersonMono2.flux();
     }
 
     @Test

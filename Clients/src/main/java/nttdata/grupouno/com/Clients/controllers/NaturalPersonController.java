@@ -19,7 +19,6 @@ import javax.validation.Valid;
 import java.net.URI;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.UUID;
 
 @RestController
 @RequestMapping("/api/naturalPerson")

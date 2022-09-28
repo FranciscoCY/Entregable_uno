@@ -12,16 +12,16 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class UtilTest {
 
+    @Autowired
     private Util util;
 
     @Test
     void dateToString() {
-        String fecha = "27/09/2022";
         Date today = new Date();
         DateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
         String resp = formatter.format(new Date());
         String h = Util.dateToString(today);
-        assertEquals(resp,fecha);
+        assertEquals(resp, h);
     }
 
     @Test
@@ -39,7 +39,7 @@ class UtilTest {
     void getYear() {
         String month = "2022";
         String resp = util.getYear(new Date());
-        assertEquals(resp,month);
+        assertEquals(resp, month);
     }
 
     @Test
