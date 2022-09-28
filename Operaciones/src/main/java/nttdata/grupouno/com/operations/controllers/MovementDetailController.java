@@ -88,7 +88,6 @@ public class MovementDetailController {
 
     @PutMapping("/transfer")
     public Mono<ResponseEntity<Map<String, Object>>> transfer(@RequestBody Map<String, String> body) {
-        String cabecera = "", cuerpo = "";
         String rootAccount = body.get("rootAccount");
         String destinationAccount = body.get("destinationAccount");
         Double amount = Double.parseDouble(body.get("amount"));
@@ -113,10 +112,7 @@ public class MovementDetailController {
             rootAccount1.setStartDate(b.getStartDate());
             System.out.println(rootAccount1);
 
-            if (rootAccount1 == null) {
-                respuesta.put("Cuenta Origen", "Cuenta origen no existe");
-                System.out.println("Cuenta origen no existe");
-            } else {
+
                 master1.filter(a -> a.getNumberAccount().equals(destinationAccount))
                         .subscribe(c -> {
                             System.out.println("Prueba2");
@@ -130,10 +126,6 @@ public class MovementDetailController {
                             destinationAccount1.setStartDate(c.getStartDate());
                             System.out.println(destinationAccount1.getStatus());
 
-                            if (destinationAccount1 == null) {
-                                respuesta.put("Cuenta Destino", "Cuenta destino no existe");
-                                System.out.println("Cuenta origen no existe");
-                            } else {
                                 respuesta.put("Cuenta Destino", "Cuenta destino existe");
                                 System.out.println("Cuenta Destino");
                                 if(rootAccount1.getAmount() >= amount){
@@ -145,10 +137,8 @@ public class MovementDetailController {
                                 }else{
                                     System.out.println("Saldo insuficiente");
                                 }
-                            }
 
                         });
-            }
             Mono.just(ResponseEntity.created(URI.create("/transfer"))
                     .contentType(MediaType.APPLICATION_JSON)
                     .body(respuesta));
