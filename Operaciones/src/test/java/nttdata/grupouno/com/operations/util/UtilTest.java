@@ -1,26 +1,35 @@
 package nttdata.grupouno.com.operations.util;
 
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 
-import static org.junit.jupiter.api.Assertions.*;
-
 class UtilTest {
-
     @Autowired
-    private Util util;
+    Date dateRepresentation;
+
+    @BeforeEach
+    void init(){
+        Calendar cal = Calendar.getInstance();
+        cal.set(Calendar.YEAR, 2022);
+        cal.set(Calendar.MONTH, Calendar.JANUARY);
+        cal.set(Calendar.DAY_OF_MONTH, 1);
+        dateRepresentation = cal.getTime();
+    }
 
     @Test
     void dateToString() {
-        Date today = new Date();
         DateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
-        String resp = formatter.format(new Date());
-        String h = Util.dateToString(today);
+        String resp = formatter.format(dateRepresentation);
+        String h = Util.dateToString(dateRepresentation);
         assertEquals(resp, h);
     }
 
@@ -30,16 +39,14 @@ class UtilTest {
 
     @Test
     void getMonth() {
-        String month = "09";
-        String resp = util.getMonth(new Date());
-        assertEquals(resp,month);
+        String resp = Util.getMonth(dateRepresentation);
+        assertEquals(resp, "01");
     }
 
     @Test
     void getYear() {
-        String month = "2022";
-        String resp = util.getYear(new Date());
-        assertEquals(resp, month);
+        String resp = Util.getYear(dateRepresentation);
+        assertEquals(resp, "2022");
     }
 
     @Test
